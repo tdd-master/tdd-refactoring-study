@@ -47,8 +47,6 @@ class TestCharCalculator(unittest.TestCase):
 
     def test_merge_input(self):
         self.Cal.insert_input('3')
-        new_input = '6'
-        self.Cal.convert_input(new_input)
         self.Cal.merge_input('6', reset=False)
         self.assertEqual(self.Cal._input, [3, 6])
 
