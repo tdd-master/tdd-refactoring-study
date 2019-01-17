@@ -43,11 +43,14 @@ class TestCharCalculator(unittest.TestCase):
         
     def test_reset_input(self):
         self.Cal.reset_input()
-        self.assertEqual(self.Cal._input, '')
+        self.assertEqual(self.Cal._input, [])
 
     def test_merge_input(self):
-        self.Cal.merge_input('3')
-        self.assertEqual(self.Cal._input, '3')
+        self.Cal.insert_input('3')
+        new_input = '6'
+        self.Cal.convert_input(new_input)
+        self.Cal.merge_input('6', reset=False)
+        self.assertEqual(self.Cal._input, [3, 6])
 
 if __name__ == '__main__':
     unittest.test()

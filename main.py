@@ -31,38 +31,45 @@ class PreProcess(metaclass=ABCMeta):
         raise NotImplemented('')
 
     @abstractmethod
-    def insert_input(self):
-        raise NotImplemented('')
-
-    @abstractmethod
     def reset_input(self):
         raise NotImplemented('')
 
     @abstractmethod
-    def check_input(self):
-        raise NotImplemented('')
-    
-    @abstractmethod
-    def split_input(self):
+    def insert_input(self, _input):
         raise NotImplemented('')
 
     @abstractmethod
-    def merge_input(self):
+    def check_input(self, _input):
+        raise NotImplemented('')
+    
+    @abstractmethod
+    def convert_input(self):
+        raise NotImplemented('')
+
+    @abstractmethod
+    def merge_input(self, _input):
         raise NotImplemented('')
 
 class Calculator(PreProcess, metaclass=ABCMeta):
     """General Calculator
     """
     def __init__(self):
-        pass
+        self._input = None
+        self._output = None
 
     @abstractmethod
     def operator(self):
         raise NotImplemented('')
 
-    @abstractmethod
-    def run(self):
-        raise NotImplemented('')
+    def print_out(self):
+        print(self._output)
+
+    def run(self, _input):
+        _in = self.get_input(_input)
+        self.insert_input(_in)
+        self.split_merge_input(_in)
+        self.operator()
+        self.print_out()
 
 class SingleCharCalculator(Calculator):
     """Single Char Calculator
@@ -72,10 +79,10 @@ class SingleCharCalculator(Calculator):
         $ python main.py -i='5+5+5'
     """
     def __init__(self):
-        self._input = None
+         super(SingleCharCalculator, self).__init__()
 
     def reset_input(self):
-        self._input = ''
+        self._input = []
 
     def get_input(self, _input):
         return _input
@@ -84,33 +91,36 @@ class SingleCharCalculator(Calculator):
         assert isinstance(_input, str)
 
     def insert_input(self, _input):
-        check_input(self, _input)
+        self.check_input(_input)
         self._input = self.get_input(_input)
 
-    def split_input(self):
-        self._input = [int(i) for i in self._input.split(',')]
+    def convert_input(self, _input):
+        """ convert input string into list.
 
-    def merge_input(self, _input, reset=True):
-        new_output = self.get_input(_input)
+        Args:
+            _input: string
+
+        Returns:
+            list 
+
+        """
+        return [int(i) for i in _input.split(',')]
+
+    def merge_input(self, new_input, reset=True):
+        new_output = self.convert_input(new_input)
+        self._input = self.convert_input(self._input)
+        
         if reset:
             self.reset_input()
             self._input = new_output
         else:
-            self._input = self._input + ',' + new_output
+            self._input.extend(new_output)
 
-    def split_merge_input(self):
-        self.split_input()
-        self.merge_input()
+    def split_merge_input(self, _input):
+        self.merge_input(_input)
 
     def operator(self):
-        return sum(self._input)
-
-    def run(self, _input):
-        _in = self.get_input(_input)
-        self.check_input(_in)
-        self.split_merge_input()
-        res = self.operator()
-        print(res)
+        self._output = sum(self._input)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Calculator using Chars')
