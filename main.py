@@ -24,14 +24,20 @@ class PreProcess(metaclass=ABCMeta):
     """General PreProcess
     """
     def __init__(self, _input):
+        """ init
+
+        Args:
+            _input: string
+
+        Returns:
+            _output: numeric
+
+        """
         self._input = _input
+        self._output = 0
 
     @abstractmethod
     def get_input(self):
-        raise NotImplemented('')
-
-    @abstractmethod
-    def reset_input(self):
         raise NotImplemented('')
 
     @abstractmethod
@@ -43,11 +49,15 @@ class PreProcess(metaclass=ABCMeta):
         raise NotImplemented('')
     
     @abstractmethod
-    def convert_input(self):
+    def convert_input(self, _input):
         raise NotImplemented('')
 
     @abstractmethod
-    def merge_input(self, _input):
+    def reset_output(self):
+        raise NotImplemented('')
+
+    @abstractmethod
+    def merge_input(self):
         raise NotImplemented('')
 
 class Calculator(PreProcess, metaclass=ABCMeta):
@@ -55,7 +65,7 @@ class Calculator(PreProcess, metaclass=ABCMeta):
     """
     def __init__(self):
         self._input = None
-        self._output = None
+        self._output = 0
 
     @abstractmethod
     def operator(self):
@@ -67,7 +77,7 @@ class Calculator(PreProcess, metaclass=ABCMeta):
     def run(self, _input):
         _in = self.get_input(_input)
         self.insert_input(_in)
-        self.split_merge_input(_in)
+        self.merge_input()
         self.operator()
         self.print_out()
 
@@ -81,7 +91,7 @@ class SingleCharCalculator(Calculator):
     def __init__(self):
          super(SingleCharCalculator, self).__init__()
 
-    def reset_input(self):
+    def reset_output(self):
         self._input = []
 
     def get_input(self, _input):
@@ -106,25 +116,23 @@ class SingleCharCalculator(Calculator):
         """
         return [int(i) for i in _input.split(',')]
 
-    def merge_input(self, new_input, reset=True):
-        new_output = self.convert_input(new_input)
-        self._input = self.convert_input(self._input)
+    def merge_input(self, reset=True):
+        old_input = self.convert_input(str(self._output))
+        new_input = self.convert_input(self._input)
         
         if reset:
-            self.reset_input()
-            self._input = new_output
+            self.reset_output()
         else:
-            self._input.extend(new_output)
-
-    def split_merge_input(self, _input):
-        self.merge_input(_input)
+            new_input.extend(old_input)
+        
+        self._input = new_input
 
     def operator(self):
         self._output = sum(self._input)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Calculator using Chars')
-    parser.add_argument('-i', '--input', default='0', type=str,
+    parser.add_argument('-i', '--input', default='5,1,-6', type=str,
                     help='Character input')
     args = parser.parse_args()
     Cal = SingleCharCalculator()

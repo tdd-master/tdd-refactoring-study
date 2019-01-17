@@ -41,14 +41,32 @@ class TestCharCalculator(unittest.TestCase):
         input_value = self.Cal.get_input('5')
         self.Cal.check_input(input_value)
         
-    def test_reset_input(self):
-        self.Cal.reset_input()
+    def test_reset_output(self):
+        self.Cal.reset_output()
         self.assertEqual(self.Cal._input, [])
 
     def test_merge_input(self):
         self.Cal.insert_input('3')
-        self.Cal.merge_input('6', reset=False)
-        self.assertEqual(self.Cal._input, [3, 6])
+        self.Cal.merge_input()
+        self.assertEqual(self.Cal._input, [3])
+
+    def test_operator(self):
+        self.Cal.insert_input('3, 3')
+        self.Cal.merge_input()
+        self.Cal.operator()
+        self.assertEqual(self.Cal._input, [3, 3])
+        self.assertEqual(self.Cal._output, 6)
+
+    def test_loop_operator(self):
+        self.Cal.insert_input('3, 3')
+        self.Cal.merge_input()
+        self.Cal.operator()
+        self.assertEqual(self.Cal._output, 6)
+        
+        self.Cal.insert_input('6, 3')
+        self.Cal.merge_input(reset=False)
+        self.Cal.operator()
+        self.assertEqual(self.Cal._output, 6+6+3)
 
 if __name__ == '__main__':
     unittest.test()
