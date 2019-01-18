@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hosik.tdd.tdd-study.iml" filepath="$PROJECT_DIR$/.idea/modules/hosik.tdd.tdd-study.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hosik.tdd.tdd-study.main.iml" filepath="$PROJECT_DIR$/.idea/modules/hosik.tdd.tdd-study.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hosik.tdd.tdd-study.test.iml" filepath="$PROJECT_DIR$/.idea/modules/hosik.tdd.tdd-study.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tdd-refactoring-study.iml" filepath="$PROJECT_DIR$/.idea/tdd-refactoring-study.iml" />
+    </modules>
+  </component>
+</project>
