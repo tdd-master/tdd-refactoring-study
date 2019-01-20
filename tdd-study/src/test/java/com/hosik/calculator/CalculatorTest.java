@@ -3,9 +3,6 @@ package com.hosik.calculator;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
-import java.time.LocalDate;
-import java.util.Calendar;
-
 import static org.junit.Assert.*;
 
 /*
@@ -36,16 +33,43 @@ public class CalculatorTest {
     }
 
     @Test
-    public void seperate_input() {
+    public void should_return_zero() {
         Calculator calculator = new Calculator();
-
-        
+        int result = calculator.calc("0");
+        assertEquals(0, result);
     }
 
     @Test
     public void sum_test() {
         Calculator calculator = new Calculator();
-        calculator.calc("1,2,3");
+        int result = calculator.calc("1,2,3");
+        assertEquals(6, result);
     }
 
+    @Test(expected = NumberFormatException.class)
+    public void seperate_fail() {
+        Calculator calculator = new Calculator(":");
+        int result = calculator.calc("1,2,3");
+    }
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
