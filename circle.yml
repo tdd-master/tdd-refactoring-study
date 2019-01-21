@@ -4,3 +4,7 @@ test:
     post:
         - codecov
 
+dependencies:
+    pre:
+       -  pip install -r requirements.txt
+
