@@ -18,13 +18,14 @@
 """Calculator using string"""
 
 from abc import ABCMeta, abstractmethod
+import re
 import argparse
 
 
 class PreProcess(metaclass=ABCMeta):
     """General PreProcess
     """
-    def __init__(self, sep=','):
+    def __init__(self, sep=[',']):
         """Init
         """
         self._input = []
@@ -115,7 +116,7 @@ class SingleCharCalculator(Calculator):
     You can calculate the string
         $ python main.py -i='5+5+5'
     """
-    def __init__(self, sep=','):
+    def __init__(self, sep=[',']):
         super(SingleCharCalculator, self).__init__()
         self._input = 0
         self._output = 0
@@ -152,7 +153,10 @@ class SingleCharCalculator(Calculator):
             list
 
         """
-        return [int(i) for i in _input.split(self._sep)]
+        pattern = r"[{}]".format("".join(self._sep))
+        splited_input = re.split(pattern, _input)
+
+        return [int(i) for i in splited_input]
 
     def merge_input(self, reset=True):
         """Merge old_input(previous output) and new_input

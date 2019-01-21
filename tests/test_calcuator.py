@@ -44,13 +44,17 @@ class TestCharCalculator(unittest.TestCase):
     def test_convert_input(self):
         test_input_dot = '5.7.7'
         test_input_plus = '5+7+7'
+        test_input_plus_dot = '5+7,7'
         test_ouput = [5,7,7]
-        self.Cal_plus = SingleCharCalculator(sep='+')
+        self.Cal_plus = SingleCharCalculator(sep=['+'])
         self.assertTrue(test_ouput, self.Cal_plus.convert_input(test_input_plus))
 
-        self.Cal_dot = SingleCharCalculator(sep='.')
+        self.Cal_dot = SingleCharCalculator(sep=['.'])
         self.assertTrue(test_ouput, self.Cal_dot.convert_input(test_input_dot))
         
+        self.Cal_plus_dot = SingleCharCalculator(sep=['+', '.'])
+        self.assertTrue(test_ouput, self.Cal_plus_dot.convert_input(test_input_dot))
+
     def test_reset_output(self):
         self.Cal.reset_output()
         self.assertEqual(self.Cal._input, [])
