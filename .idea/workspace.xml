@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="162708c5-340c-443f-beb3-def3bd3173b7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/hosik.tdd.tdd-study.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/hosik.tdd.tdd-study.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/hosik.tdd.tdd-study.test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tdd-study/src/main/java/com/hosik/calculator/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/tdd-study/src/main/java/com/hosik/calculator/Calculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tdd-study/src/test/java/com/hosik/calculator/CalculatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tdd-study/src/test/java/com/hosik/calculator/CalculatorTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/tdd-study/.gradle/" />
     <ignored path="$PROJECT_DIR$/tdd-study/build/" />
@@ -37,7 +32,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tdd-study/src/main/java/com/hosik/calculator/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
+            <state relative-caret-position="68">
               <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
               <folding>
                 <element signature="e#94#95#0" expanded="true" />
@@ -50,16 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tdd-study/src/main/java/com/hosik/calculator/Calculator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
-              <folding>
-                <element signature="e#111#112#0" expanded="true" />
-                <element signature="e#141#142#0" expanded="true" />
-                <element signature="e#185#186#0" expanded="true" />
-                <element signature="e#226#227#0" expanded="true" />
-                <element signature="e#227#228#0" expanded="true" />
-                <element signature="e#258#259#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="323">
+              <caret line="26" column="9" lean-forward="true" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -67,8 +54,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tdd-study/src/test/java/com/hosik/calculator/CalculatorTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
+            <state relative-caret-position="191">
+              <caret line="52" column="31" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -106,14 +93,14 @@
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1680" />
-    <option name="height" value="945" />
+    <option name="height" value="942" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -163,11 +150,28 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
+            <path>
+              <item name="tdd-refactoring-study" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tdd-refactoring-study" type="462c0819:PsiDirectoryNode" />
+              <item name="tdd-study" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tdd-refactoring-study" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tdd-refactoring-study" type="462c0819:PsiDirectoryNode" />
+              <item name="tdd-study" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="calculator" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -202,20 +206,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CalculatorTest.diff_seperator_test">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.hosik.calculator.Main" />
-      <module name="hosik.tdd.tdd-study.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.hosik.calculator.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.CalculatorTest.diff_seperstor_sum">
     <configuration name="CalculatorTest.calculator_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="hosik.tdd.tdd-study.test" />
       <extension name="coverage">
@@ -264,12 +255,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CalculatorTest.diff_seperstor_sum" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hosik.tdd.tdd-study.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hosik.calculator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hosik.calculator" />
+      <option name="MAIN_CLASS_NAME" value="com.hosik.calculator.CalculatorTest" />
+      <option name="METHOD_NAME" value="diff_seperstor_sum" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CalculatorTest.sum_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hosik.tdd.tdd-study.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hosik.calculator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hosik.calculator" />
+      <option name="MAIN_CLASS_NAME" value="com.hosik.calculator.CalculatorTest" />
+      <option name="METHOD_NAME" value="sum_test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CalculatorTest.diff_seperstor_sum" />
+        <item itemvalue="JUnit.CalculatorTest.sum_test" />
         <item itemvalue="JUnit.CalculatorTest.diff_seperator_test" />
         <item itemvalue="JUnit.CalculatorTest.default_seperator_test" />
         <item itemvalue="JUnit.CalculatorTest.calculator_test" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -285,20 +309,12 @@
       <updated>1547629239985</updated>
       <workItem from="1547629241416" duration="754000" />
       <workItem from="1547702328195" duration="1737000" />
-      <workItem from="1547711332287" duration="5894000" />
+      <workItem from="1547711332287" duration="7066000" />
+      <workItem from="1548043059064" duration="650000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="CalculatorTest_calculator_test - 2019.01.18 at 13h 57m 48s.xml">
-      <configuration name="CalculatorTest.calculator_test" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CalculatorTest_calculator_test - 2019.01.18 at 14h 01m 51s.xml">
-      <configuration name="CalculatorTest.calculator_test" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CalculatorTest_calculator_test - 2019.01.18 at 14h 10m 13s.xml">
-      <configuration name="CalculatorTest.calculator_test" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="CalculatorTest_calculator_test - 2019.01.18 at 14h 11m 02s.xml">
       <configuration name="CalculatorTest.calculator_test" configurationId="JUnit" />
     </history-entry>
@@ -320,22 +336,31 @@
     <history-entry file="CalculatorTest_diff_seperator_test - 2019.01.18 at 17h 30m 23s.xml">
       <configuration name="CalculatorTest.diff_seperator_test" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="CalculatorTest_sum_test - 2019.01.21 at 13h 04m 40s.xml">
+      <configuration name="CalculatorTest.sum_test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CalculatorTest_sum_test - 2019.01.21 at 13h 05m 52s.xml">
+      <configuration name="CalculatorTest.sum_test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CalculatorTest_diff_seperstor_sum - 2019.01.21 at 13h 07m 33s.xml">
+      <configuration name="CalculatorTest.diff_seperstor_sum" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8385000" />
+    <option name="totallyTimeSpent" value="10207000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="945" extended-state="6" />
+    <frame x="0" y="23" width="1680" height="942" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1941392" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1965812" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32942554" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32941177" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -368,17 +393,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tdd-study/src/main/java/com/hosik/calculator/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
-          <folding>
-            <element signature="e#94#95#0" expanded="true" />
-            <element signature="e#137#138#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/src.zip!/java/time/LocalDate.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-8590">
@@ -393,25 +407,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tdd-study/src/main/java/com/hosik/calculator/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+          <folding>
+            <element signature="e#94#95#0" expanded="true" />
+            <element signature="e#137#138#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tdd-study/src/main/java/com/hosik/calculator/Calculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#111#112#0" expanded="true" />
-            <element signature="e#141#142#0" expanded="true" />
-            <element signature="e#185#186#0" expanded="true" />
-            <element signature="e#226#227#0" expanded="true" />
-            <element signature="e#227#228#0" expanded="true" />
-            <element signature="e#258#259#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="323">
+          <caret line="26" column="9" lean-forward="true" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tdd-study/src/test/java/com/hosik/calculator/CalculatorTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
+        <state relative-caret-position="191">
+          <caret line="52" column="31" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

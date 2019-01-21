@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Calculator {
     private String seperator;
+    private List<Integer> numbers = new ArrayList<>();
 
     public Calculator() {
         seperator = ",";
@@ -19,7 +20,7 @@ public class Calculator {
     }
 
     public Integer calc(String input) {
-        List<Integer> numbers = seperate(input);
+        seperate(input);
         int result = 0;
         for (Integer num : numbers) {
             result += num;
@@ -27,17 +28,14 @@ public class Calculator {
         return result;
     }
 
-    private List<Integer> seperate(String input) {
+    private void seperate(String input) {
         String [] numString = input.split(seperator);
-        List<Integer> numbers = getIntegers(numString);
-        return numbers;
+        getIntegers(numString);
     }
 
-    private List<Integer> getIntegers(String[] numString) {
-        List<Integer> numbers = new ArrayList<>();
+    private void getIntegers(String[] numString) {
         for (String num : numString) {
             numbers.add(Integer.parseInt(num));
         }
-        return numbers;
     }
 }
