@@ -46,4 +46,4 @@ jobs:
           command: |
             . venv/bin/activate
               py.test --cov-report=xml --cov=./ tests/
-              bash <(curl -s https://codecov.io/bash) -c -F unittests -t bae53b47-b7b2-46ff-861f-112930f5c289
+              bash <(curl -s https://codecov.io/bash) -c -F unittests
