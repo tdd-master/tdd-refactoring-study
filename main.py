@@ -20,87 +20,123 @@
 from abc import ABCMeta, abstractmethod
 import argparse
 
+
 class PreProcess(metaclass=ABCMeta):
     """General PreProcess
     """
-    def __init__(self, _input):
-        """ init
-
-        Args:
-            _input: string
-
-        Returns:
-            _output: numeric
-
+    def __init__(self):
+        """Init
         """
-        self._input = _input
-        self._output = 0
+        self._input = []
+        self._output = []
 
     @abstractmethod
-    def get_input(self):
-        raise NotImplemented('')
+    def get_input(self, _input):
+        """Get the input
+        """
+        raise NotImplementedError('')
 
     @abstractmethod
     def insert_input(self, _input):
-        raise NotImplemented('')
+        """Insert the input into memory
+        """
+        raise NotImplementedError('')
 
     @abstractmethod
     def check_input(self, _input):
-        raise NotImplemented('')
-    
+        """Check the input
+        """
+        raise NotImplementedError('')
+
     @abstractmethod
     def convert_input(self, _input):
-        raise NotImplemented('')
+        """Convert the input to use operators such as sum, multiply, and so on
+        """
+        raise NotImplementedError('')
 
     @abstractmethod
     def reset_output(self):
-        raise NotImplemented('')
+        """Reset output
+        Remove the previos output
+        """
+        raise NotImplementedError('')
 
     @abstractmethod
-    def merge_input(self):
-        raise NotImplemented('')
+    def merge_input(self, reset=True):
+        """Merge input and output.
+        If reset is true, then reset the input
+        """
+        raise NotImplementedError('')
+
 
 class Calculator(PreProcess, metaclass=ABCMeta):
     """General Calculator
     """
     def __init__(self):
-        self._input = None
+        """Init
+        """
+        super(Calculator, self).__init__()
+        self._input = 0
         self._output = 0
 
     @abstractmethod
     def operator(self):
-        raise NotImplemented('')
+        """Operator
+        """
+        raise NotImplementedError('')
 
     def print_out(self):
+        """Print the output
+        """
         print(self._output)
 
-    def run(self, _input):
+    def run_preprocess(self, _input):
+        """Run preprocess"""
         _in = self.get_input(_input)
         self.insert_input(_in)
         self.merge_input()
+
+    def run_operator(self):
+        """Run operator"""
         self.operator()
         self.print_out()
 
+    def run(self, _input):
+        """Run preprocess and operator
+        """
+        self.run_preprocess(_input)
+        self.run_operator()
+
+
 class SingleCharCalculator(Calculator):
     """Single Char Calculator
-    
     Example:
     You can calculate the string
         $ python main.py -i='5+5+5'
     """
     def __init__(self):
-         super(SingleCharCalculator, self).__init__()
+        super(SingleCharCalculator, self).__init__()
+        self._input = 0
+        self._output = 0
 
     def reset_output(self):
+        """ Remove the previos output
+        """
         self._input = []
 
     def get_input(self, _input):
+        """Get the input
+        """
         return _input
-        
+
     def check_input(self, _input):
+        """Check the input as Chars
+        """
         assert isinstance(_input, str)
 
     def insert_input(self, _input):
+        """Insert the input as Chars
+        """
         self.check_input(_input)
         self._input = self.get_input(_input)
 
@@ -111,29 +147,33 @@ class SingleCharCalculator(Calculator):
             _input: string
 
         Returns:
-            list 
+            list
 
         """
         return [int(i) for i in _input.split(',')]
 
     def merge_input(self, reset=True):
+        """Merge old_input(previous output) and new_input
+        """
         old_input = self.convert_input(str(self._output))
         new_input = self.convert_input(self._input)
-        
+
         if reset:
             self.reset_output()
         else:
             new_input.extend(old_input)
-        
+
         self._input = new_input
 
     def operator(self):
+        """sum the list
+        """
         self._output = sum(self._input)
 
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Calculator using Chars')
-    parser.add_argument('-i', '--input', default='5,1,-6', type=str,
-                    help='Character input')
-    args = parser.parse_args()
-    Cal = SingleCharCalculator()
-    Cal.run(args.input)
+    PARSER = argparse.ArgumentParser(description='Calculator using Chars')
+    PARSER.add_argument('-i', '--input', default='5,1,-6', type=str, help='Character input')
+    ARGS = PARSER.parse_args()
+    CAL = SingleCharCalculator()
+    CAL.run(ARGS.input)
