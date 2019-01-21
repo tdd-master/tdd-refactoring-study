@@ -5,11 +5,12 @@
 4. 2, 3 반복
 5. 평가
 
-## Build
-
+## Environments
 [![CircleCI](https://circleci.com/gh/tdd-master/tdd-refactoring-study/tree/calculator%2Fjun.svg?style=svg)](https://circleci.com/gh/tdd-master/tdd-refactoring-study/tree/calculator%2Fjun)
 
-## Environments
+
+[![codecov](https://codecov.io/gh/tdd-master/tdd-refactoring-study/branch/calculator%2Fjun/graph/badge.svg)](https://codecov.io/gh/tdd-master/tdd-refactoring-study)
+
 
 ```
 Python 3.6
