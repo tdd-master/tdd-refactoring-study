@@ -24,11 +24,12 @@ import argparse
 class PreProcess(metaclass=ABCMeta):
     """General PreProcess
     """
-    def __init__(self):
+    def __init__(self, sep=','):
         """Init
         """
         self._input = []
         self._output = []
+        self._sep = sep
 
     @abstractmethod
     def get_input(self, _input):
@@ -90,21 +91,21 @@ class Calculator(PreProcess, metaclass=ABCMeta):
         """
         print(self._output)
 
-    def run_preprocess(self, _input):
+    def run_preprocess(self, _input, reset):
         """Run preprocess"""
         _in = self.get_input(_input)
         self.insert_input(_in)
-        self.merge_input()
+        self.merge_input(reset)
 
     def run_operator(self):
         """Run operator"""
         self.operator()
         self.print_out()
 
-    def run(self, _input):
+    def run(self, _input, reset=True):
         """Run preprocess and operator
         """
-        self.run_preprocess(_input)
+        self.run_preprocess(_input, reset)
         self.run_operator()
 
 
@@ -114,10 +115,11 @@ class SingleCharCalculator(Calculator):
     You can calculate the string
         $ python main.py -i='5+5+5'
     """
-    def __init__(self):
+    def __init__(self, sep=','):
         super(SingleCharCalculator, self).__init__()
         self._input = 0
         self._output = 0
+        self._sep = sep
 
     def reset_output(self):
         """ Remove the previos output
@@ -150,7 +152,7 @@ class SingleCharCalculator(Calculator):
             list
 
         """
-        return [int(i) for i in _input.split(',')]
+        return [int(i) for i in _input.split(self._sep)]
 
     def merge_input(self, reset=True):
         """Merge old_input(previous output) and new_input

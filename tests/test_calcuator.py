@@ -22,10 +22,10 @@ from main import SingleCharCalculator
         
 class TestCharCalculator(unittest.TestCase):
     def setUp(self):
-       self.test_chars = ['0', '1,2', '1,2\n3']
+       self.test_chars = ['0', '1,2', '1,2,3']
        self.test_answer = [0, 3, 6]
        self.Cal = SingleCharCalculator()
-    
+
     def test_get_input(self):
         output = self.Cal.get_input('0')
         self.assertEqual(output, '0')
@@ -40,6 +40,16 @@ class TestCharCalculator(unittest.TestCase):
     def test_check_input_chars(self):
         input_value = self.Cal.get_input('5')
         self.Cal.check_input(input_value)
+
+    def test_convert_input(self):
+        test_input_dot = '5.7.7'
+        test_input_plus = '5+7+7'
+        test_ouput = [5,7,7]
+        self.Cal_plus = SingleCharCalculator(sep='+')
+        self.assertTrue(test_ouput, self.Cal_plus.convert_input(test_input_plus))
+
+        self.Cal_dot = SingleCharCalculator(sep='.')
+        self.assertTrue(test_ouput, self.Cal_dot.convert_input(test_input_dot))
         
     def test_reset_output(self):
         self.Cal.reset_output()
@@ -67,6 +77,11 @@ class TestCharCalculator(unittest.TestCase):
         self.Cal.merge_input(reset=False)
         self.Cal.operator()
         self.assertEqual(self.Cal._output, 6+6+3)
+
+    def test_task_input_output(self):
+        for i,j in zip(self.test_chars, self.test_answer):
+            self.Cal.run(i)
+            self.assertEqual(self.Cal._output, j)
 
 if __name__ == '__main__':
     unittest.test()
