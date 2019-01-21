@@ -52,8 +52,8 @@ class TestCharCalculator(unittest.TestCase):
         self.Cal_dot = SingleCharCalculator(sep=['.'])
         self.assertTrue(test_ouput, self.Cal_dot.convert_input(test_input_dot))
         
-        self.Cal_plus_dot = SingleCharCalculator(sep=['+', '.'])
-        self.assertTrue(test_ouput, self.Cal_plus_dot.convert_input(test_input_dot))
+        self.Cal_plus_dot = SingleCharCalculator(sep=['+', ','])
+        self.assertTrue(test_ouput, self.Cal_plus_dot.convert_input(test_input_plus_dot))
 
     def test_reset_output(self):
         self.Cal.reset_output()
