@@ -1,9 +1,12 @@
 package com.hosik.calculator;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /*
 
@@ -17,44 +20,60 @@ import static org.junit.Assert.*;
 INPUT, OUTPUT
     0 => 0
     1,2 => 3
-    1,2\n3 => 6
+    ==================
+요구사항이 변경되어, 여러 seperator를 받아야함.
  */
 
 public class CalculatorTest {
+
     @Test
-    public void default_seperator_test() {
+    public void default_constructor_test() {
         Calculator calculator = new Calculator();
-        assertThat(calculator.getSeperator(), CoreMatchers.is(","));
-    }
-    @Test
-    public void diff_seperator_test() {
-        Calculator calculator = new Calculator(":");
-        assertThat(calculator.getSeperator(), CoreMatchers.is(":"));
+        assertEquals(",", calculator.getSeparators().get(0));
     }
 
     @Test
-    public void should_return_zero() {
+    public void if_seperator_null_then_defaul_sep() {
+        Calculator calculator = new Calculator(null);
+        assertEquals(",", calculator.getSeparators().get(0));
+    }
+
+    @Test
+    public void diff_seperator_test() {
+        List<String> separators = new ArrayList<>();
+        separators.add(":");
+        separators.add("\n");
+        Calculator calculator = new Calculator(separators);
+        List<String> sep = calculator.getSeparators();
+        assertEquals(":", sep.get(0));
+        assertEquals("\n", sep.get(1));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void input_empty_test() {
         Calculator calculator = new Calculator();
-        int result = calculator.calc("0");
-        assertEquals(0, result);
+        calculator.calc("");
+    }
+
+    @Test
+    public void regex_test() {
+        List<String> sep = Arrays.asList(":", "m");
+        Calculator calculator = new Calculator(sep);
+        System.out.println(calculator.getRegex());
+        String s = "1:2442m3";
+        String [] ss = s.split(calculator.getRegex());
+        for (String sss : ss) {
+            System.out.println(sss);
+        }
     }
 
     @Test
     public void sum_test() {
-        Calculator calculator = new Calculator();
-        int result = calculator.calc("1,2,3");
-        assertEquals(6, result);
+        List<String> sep = Arrays.asList(":", "m");
+        Calculator calculator = new Calculator(sep);
+        int result = calculator.calc("1:2:3m4");
+        assertEquals(10, result);
     }
-
-    @Test(expected = NumberFormatException.class)
-    public void seperate_fail() {
-        Calculator calculator = new Calculator(":");
-        int result = calculator.calc("1,2,3");
-    }
-
-
-
-
 }
 
 

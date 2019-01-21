@@ -1,41 +1,59 @@
 package com.hosik.calculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Calculator {
-    private String seperator;
-    private List<Integer> numbers = new ArrayList<>();
+    private List<String> separators;
 
     public Calculator() {
-        seperator = ",";
+        separators = Arrays.asList(",");
     }
 
-    public Calculator(String seperator) {
-        this.seperator = seperator;
+    public Calculator(List<String> separators) {
+        this.separators = separators == null ? Arrays.asList(",") : separators;
     }
 
-    public String getSeperator() {
-        return seperator;
+    public List<String> getSeparators() {
+        return separators;
     }
 
     public Integer calc(String input) {
-        seperate(input);
-        int result = 0;
-        for (Integer num : numbers) {
-            result += num;
+        if (isEmpty(input))
+            throw new IllegalArgumentException();
+
+        String [] seperated = input.split(getRegex());
+        List<Integer> numbers = new ArrayList<>();
+
+        for (String str : seperated) {
+            numbers.add(Integer.parseInt(str));
         }
-        return result;
+
+        return numbers.stream().mapToInt(Integer::intValue).sum();
+
     }
 
-    private void seperate(String input) {
-        String [] numString = input.split(seperator);
-        getIntegers(numString);
+    public String getRegex() {
+        StringBuilder regex = new StringBuilder();
+        for (String str : separators) {
+            String addRegexText;
+            if(str == "|") {
+                addRegexText = "\\|";
+            } else {
+                addRegexText = String.valueOf(str);
+            }
+            if(regex.length() == 0) {
+                regex.append(addRegexText);
+            } else {
+                regex.append("|").append(addRegexText);
+            }
+        }
+
+        return regex.toString();
     }
 
-    private void getIntegers(String[] numString) {
-        for (String num : numString) {
-            numbers.add(Integer.parseInt(num));
-        }
+    private boolean isEmpty(String input) {
+        return input.isEmpty() || input == null;
     }
 }
