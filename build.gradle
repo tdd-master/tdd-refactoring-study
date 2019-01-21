@@ -1,0 +1,15 @@
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'groovy' // for Spock
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4')
+    testCompile('org.spockframework:spock-spring:1.1-groovy-2.4')
+}
