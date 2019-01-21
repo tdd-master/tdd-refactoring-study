@@ -5,6 +5,10 @@
 4. 2, 3 반복
 5. 평가
 
+## Build
+
+[![CircleCI](https://circleci.com/gh/tdd-master/tdd-refactoring-study/tree/calculator%2Fjun.svg?style=svg)](https://circleci.com/gh/tdd-master/tdd-refactoring-study/tree/calculator%2Fjun)
+
 ## Environments
 
 ```
