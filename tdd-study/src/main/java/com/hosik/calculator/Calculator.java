@@ -19,19 +19,30 @@ public class Calculator {
         return separators;
     }
 
-    public Integer calc(String input) {
+    public Integer calc(String input, String operator) {
         if (isEmpty(input))
             throw new IllegalArgumentException();
 
         String [] seperated = input.split(getRegex());
         List<Integer> numbers = new ArrayList<>();
-
         for (String str : seperated) {
             numbers.add(Integer.parseInt(str));
         }
 
-        return numbers.stream().mapToInt(Integer::intValue).sum();
+        if ("sum".equals(operator)) {
+            return getSum(numbers);
+        } else if ("multiply".equals(operator)) {
+            return getMultiply(numbers);
+        }
+        return 0;
+    }
 
+    private Integer getMultiply(List<Integer> numbers) {
+        return numbers.stream().mapToInt(Integer::intValue).reduce((left, right) -> left * right).getAsInt();
+    }
+
+    private int getSum(List<Integer> numbers) {
+        return numbers.stream().mapToInt(Integer::intValue).sum();
     }
 
     public String getRegex() {
