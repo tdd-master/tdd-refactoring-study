@@ -1,25 +1,50 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Calculator {
 
-    private String separator;
+    private List<Character> separators = new ArrayList<>();
 
     public Calculator() {
-        this.separator = ",";
+        separators.add(',');
     }
 
-    public Calculator(String separator) {
-        this.separator = separator;
+    public Calculator(char[] separator) {
+        for (char c : separator) {
+            separators.add(c);
+        }
     }
 
     public int calculate(String input) {
 
         int output = 0;
-        String[] splitedInput = input.split(this.separator);
 
-        for (String s : splitedInput) {
+        List<String> splitedString = splitWithSeparators(input);
+        for (String s : splitedString) {
             output += Integer.parseInt(s.trim());
         }
 
         return output;
+    }
+
+    private List<String> splitWithSeparators(String input) {
+        List<String> result = new ArrayList<>();
+
+        String tmp = "";
+        for (char c : input.toCharArray()) {
+            if (separators.contains(c)) {
+                if (tmp != "") {
+                    result.add(tmp);
+                }
+                tmp = "";
+            } else {
+                tmp += c;
+            }
+        }
+        if (tmp != "") {
+            result.add(tmp);
+        }
+        return result;
     }
 
 
