@@ -1,67 +1,56 @@
 package com.hosik.calculator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Calculator {
-    private List<String> separators;
+    private Numbers numbers;
+    private Seperate seperate;
 
     public Calculator() {
-        separators = Arrays.asList(",");
+        seperate = new Seperate();
     }
 
     public Calculator(List<String> separators) {
-        this.separators = separators == null ? Arrays.asList(",") : separators;
+        this.seperate = separators == null ?
+                seperate = new Seperate() : new Seperate(separators);
     }
 
-    public List<String> getSeparators() {
-        return separators;
-    }
-
-    public Integer calc(String input, String operator) {
+    public double calc(String input, String operator) {
         if (isEmpty(input))
             throw new IllegalArgumentException();
+        String[] target = getTarget(input);
+        numbers = new Numbers(target);
 
-        String [] seperated = input.split(getRegex());
-        List<Integer> numbers = new ArrayList<>();
-        for (String str : seperated) {
-            numbers.add(Integer.parseInt(str));
-        }
-
-        if ("sum".equals(operator)) {
-            return getSum(numbers);
-        } else if ("multiply".equals(operator)) {
-            return getMultiply(numbers);
+        if ("+".equals(operator)) {
+            return sum(numbers.getNumbers());
+        } else if ("*".equals(operator)) {
+            return multiply(numbers.getNumbers());
+        } else if ("-".equals(operator)) {
+            return minus(numbers.getNumbers());
+        } else if ("%".equals(operator)) {
+            return division(numbers.getNumbers());
         }
         return 0;
     }
 
-    private Integer getMultiply(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).reduce((left, right) -> left * right).getAsInt();
+    private double division(List<Integer> numbers) {
+        return numbers.stream().mapToDouble(Integer::doubleValue).reduce((left, right) -> left % right).getAsDouble();
     }
 
-    private int getSum(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).sum();
+    public String[] getTarget(String input) {
+        return input.split(seperate.getRegex());
     }
 
-    public String getRegex() {
-        StringBuilder regex = new StringBuilder();
-        for (String str : separators) {
-            String addRegexText;
-            if(str == "|") {
-                addRegexText = "\\|";
-            } else {
-                addRegexText = String.valueOf(str);
-            }
-            if(regex.length() == 0) {
-                regex.append(addRegexText);
-            } else {
-                regex.append("|").append(addRegexText);
-            }
-        }
+    private double minus(List<Integer> numbers) {
+        return numbers.stream().mapToDouble(Integer::intValue).reduce((left, right) -> left - right).getAsDouble();
+    }
 
-        return regex.toString();
+    private double multiply(List<Integer> numbers) {
+        return numbers.stream().mapToDouble(Integer::intValue).reduce((left, right) -> left * right).getAsDouble();
+    }
+
+    private double sum(List<Integer> numbers) {
+        return numbers.stream().mapToDouble(Integer::intValue).sum();
     }
 
     private boolean isEmpty(String input) {

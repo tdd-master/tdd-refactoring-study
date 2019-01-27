@@ -25,17 +25,18 @@ INPUT, OUTPUT
  */
 
 public class CalculatorTest {
-
     @Test
     public void default_constructor_test() {
-        Calculator calculator = new Calculator();
-        assertEquals(",", calculator.getSeparators().get(0));
+//        Calculator calculator = new Calculator();
+        Seperate seperate = new Seperate();
+        assertEquals(",", seperate.getSeparators().get(0));
     }
 
     @Test
     public void if_seperator_null_then_defaul_sep() {
-        Calculator calculator = new Calculator(null);
-        assertEquals(",", calculator.getSeparators().get(0));
+//        Calculator calculator = new Calculator(null);
+        Seperate seperate = new Seperate();
+        assertEquals(",", seperate.getSeparators().get(0));
     }
 
     @Test
@@ -43,8 +44,8 @@ public class CalculatorTest {
         List<String> separators = new ArrayList<>();
         separators.add(":");
         separators.add("\n");
-        Calculator calculator = new Calculator(separators);
-        List<String> sep = calculator.getSeparators();
+        Seperate seperate = new Seperate(separators);
+        List<String> sep = seperate.getSeparators();
         assertEquals(":", sep.get(0));
         assertEquals("\n", sep.get(1));
     }
@@ -52,16 +53,16 @@ public class CalculatorTest {
     @Test(expected = IllegalArgumentException.class)
     public void input_empty_test() {
         Calculator calculator = new Calculator();
-        calculator.calc("");
+        calculator.calc("","");
     }
 
     @Test
     public void regex_test() {
         List<String> sep = Arrays.asList(":", "m");
-        Calculator calculator = new Calculator(sep);
-        System.out.println(calculator.getRegex());
         String s = "1:2442m3";
-        String [] ss = s.split(calculator.getRegex());
+        Calculator calculator = new Calculator(sep);
+        String [] ss = calculator.getTarget(s);
+
         for (String sss : ss) {
             System.out.println(sss);
         }
@@ -71,8 +72,32 @@ public class CalculatorTest {
     public void sum_test() {
         List<String> sep = Arrays.asList(":", "m");
         Calculator calculator = new Calculator(sep);
-        int result = calculator.calc("1:2:3m4");
-        assertEquals(10, result);
+        double result = calculator.calc("1:2:3m4", "+");
+        assertEquals(10, result, 0);
+    }
+
+    @Test
+    public void multiply() {
+        List<String> sep = Arrays.asList(":", "m");
+        Calculator calculator = new Calculator(sep);
+        double result = calculator.calc("1:2:3m4", "*");
+        assertEquals(24, result, 0);
+    }
+
+    @Test
+    public void minus() {
+        List<String> sep = Arrays.asList(":", "m");
+        Calculator calculator = new Calculator(sep);
+        double result = calculator.calc("100:2:3m4", "-");
+        assertEquals(91, result, 0);
+    }
+
+    @Test
+    public void division() {
+        List<String> sep = Arrays.asList(":");
+        Calculator calculator = new Calculator(sep);
+        double result = calculator.calc("2:4", "%");
+        assertEquals(2, result, 0);
     }
 }
 
