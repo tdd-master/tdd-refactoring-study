@@ -18,7 +18,7 @@ class CalculatorSpec extends Specification {
     def "기본 구분자(,)를 사용했을 때의 계산 결과 검증"() {
 
         setup:
-        def calculator = new Calculator()
+        Calculator calculator = new PostfixCalculator()
 
         expect:
         calculator.calculate(input) == output
@@ -37,8 +37,8 @@ class CalculatorSpec extends Specification {
     def "기본 구분자 이외의 구분자를 사용했을 때의 계산 결과 검증"() {
 
         setup:
-        def separator = ['plus':'+']
-        Calculator calculator = new Calculator(separator)
+        def separator = ['+': 'plus']
+        Calculator calculator = new PostfixCalculator(separator)
 
         expect:
         calculator.calculate(input) == output
@@ -57,25 +57,25 @@ class CalculatorSpec extends Specification {
     def "구분자를 여러 개 사용했을 때의 계산 결과 검증"() {
 
         setup:
-        def separators = ['plus':'+', 'minus':'-', 'multiply':'*', 'division':'/']
-        Calculator calculator = new Calculator(separators)
+        def separators = ['+': 'plus', '-': 'minus', '*': 'multiply', '/': 'division']
+        Calculator calculator = new PostfixCalculator(separators)
 
         expect:
         calculator.calculate(input) == output
 
         where:
-        input   | output
-        "0"     | 0
-        "1+2"   | 3
-        "2-1"   | 1
-        "1*2"   | 2
-        "1+2+3" | 6
-        "1*2+3" | 5
-        "1+2*3" | 7
+        input    | output
+        "0"      | 0
+        "1+2"    | 3
+        "2-1"    | 1
+        "1*2"    | 2
+        "1+2+3"  | 6
+        "1*2+3"  | 5
+        "1+2*3"  | 7
 //        "1/2+3" | 5
 //        "1+2/3" | 7 // 나누기 결과가 정수가 아닌데 이걸 어떡하지...
-        "12+3"  | 15
-        "12+3-1"| 14
+        "12+3"   | 15
+        "12+3-1" | 14
 
     }
 
@@ -83,7 +83,7 @@ class CalculatorSpec extends Specification {
         // Integer Parsing중에 Exception 발생
 
         setup:
-        Calculator calculator = new Calculator()
+        Calculator calculator = new PostfixCalculator()
 
         when:
         calculator.calculate("1|2")
@@ -98,8 +98,8 @@ class CalculatorSpec extends Specification {
         // Integer Parsing중에 Exception 발생
 
         setup:
-        def separators = ['plus':'+', 'minus':'-', 'multiply':'*', 'division':'/']
-        Calculator calculator = new Calculator(separators)
+        def separators = ['+': 'plus', '-': 'minus', '*': 'multiply', '/': 'division']
+        Calculator calculator = new PostfixCalculator(separators)
 
         when:
         calculator.calculate("1,2+3|4")
