@@ -24,7 +24,7 @@ class TestCharCalculator(unittest.TestCase):
     def setUp(self):
        self.test_chars = ['0', '1,2', '1,2,3']
        self.test_answer = [0, 3, 6]
-       self.Cal = SingleCharCalculator()
+       self.Cal = SingleCharCalculator(sep=[','])
 
     def test_get_input(self):
         output = self.Cal.get_input('0')
@@ -33,13 +33,13 @@ class TestCharCalculator(unittest.TestCase):
     def test_check_input_numeric(self):
         _in = self.Cal.get_input(5)
         try:
-            self.Cal.check_input(_in)
+            self.Cal.check_input_type(_in)
         except AssertionError as E:
             self.assertTrue(isinstance(E, AssertionError))
 
     def test_check_input_chars(self):
         input_value = self.Cal.get_input('5')
-        self.Cal.check_input(input_value)
+        self.Cal.check_input_type(input_value)
 
     def test_convert_input(self):
         test_input_dot = '5.7.7'
@@ -47,38 +47,41 @@ class TestCharCalculator(unittest.TestCase):
         test_input_plus_dot = '5+7,7'
         test_ouput = [5,7,7]
         self.Cal_plus = SingleCharCalculator(sep=['+'])
-        self.assertTrue(test_ouput, self.Cal_plus.convert_input(test_input_plus))
+        self.assertTrue(test_ouput,
+                        self.Cal_plus.convert_input(test_input_plus))
 
         self.Cal_dot = SingleCharCalculator(sep=['.'])
-        self.assertTrue(test_ouput, self.Cal_dot.convert_input(test_input_dot))
+        self.assertTrue(test_ouput,
+                        self.Cal_dot.convert_input(test_input_dot))
         
         self.Cal_plus_dot = SingleCharCalculator(sep=['+', ','])
-        self.assertTrue(test_ouput, self.Cal_plus_dot.convert_input(test_input_plus_dot))
+        self.assertTrue(test_ouput,
+                        self.Cal_plus_dot.convert_input(test_input_plus_dot))
 
     def test_reset_output(self):
-        self.Cal.reset_output()
-        self.assertEqual(self.Cal._input, [])
+        self.Cal.reset_output_to_0()
+        self.assertEqual(self.Cal._output, 0)
 
-    def test_merge_input(self):
-        self.Cal.insert_input('3')
-        self.Cal.merge_input()
-        self.assertEqual(self.Cal._input, [3])
+    def test_merge_input_output(self):
+        self.Cal.insert_input_into_mem('3')
+        self.Cal.merge_input_output()
+        self.assertEqual(self.Cal._input, [0, 3])
 
     def test_operator(self):
-        self.Cal.insert_input('3, 3')
-        self.Cal.merge_input()
+        self.Cal.insert_input_into_mem('3, 3')
+        self.Cal.merge_input_output()
         self.Cal.operator()
-        self.assertEqual(self.Cal._input, [3, 3])
+        self.assertEqual(self.Cal._input, [0, 3, 3])
         self.assertEqual(self.Cal._output, 6)
 
     def test_loop_operator(self):
-        self.Cal.insert_input('3, 3')
-        self.Cal.merge_input()
+        self.Cal.insert_input_into_mem('3, 3')
+        self.Cal.merge_input_output()
         self.Cal.operator()
         self.assertEqual(self.Cal._output, 6)
         
-        self.Cal.insert_input('6, 3')
-        self.Cal.merge_input(reset=False)
+        self.Cal.insert_input_into_mem('6, 3')
+        self.Cal.merge_input_output()
         self.Cal.operator()
         self.assertEqual(self.Cal._output, 6+6+3)
 
@@ -88,4 +91,4 @@ class TestCharCalculator(unittest.TestCase):
             self.assertEqual(self.Cal._output, j)
 
 if __name__ == '__main__':
-    unittest.test()
+    unittest.main()
