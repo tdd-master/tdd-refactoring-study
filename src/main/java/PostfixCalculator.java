@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class PostfixCalculator implements Calculator {
 
@@ -47,42 +48,40 @@ public class PostfixCalculator implements Calculator {
     }
 
     public List<String> infixToPostfix(String infix) {
-        List<String> result = new ArrayList<>();
-//
-//        StringBuffer sb = new StringBuffer();
-//        Stack<Character> operatorStack = new Stack<>();
-//
-//        for (char c : input.toCharArray()) {
-//            System.out.println("c=" + c);
-//            if (op.getOperators().keySet().contains(Character.toString(c))) {
-//
-//                System.out.println("put int stack, stack=" + operatorStack);
-//
-//                if (sb.length() > 0) {
-//                    result.add(sb.toString());
-//                }
-//                sb.delete(0, sb.length());
-//
-//                if (operatorStack.empty()) {
-//                    operatorStack.push(c);
-//                } else if (op.getOperatorPriority().get(c) > op.getOperatorPriority().get(operatorStack.peek())) {
-//                    operatorStack.push(c);
-//                } else {
-//                    result.add(operatorStack.pop().toString());
-//                    operatorStack.push(c);
-//                }
-//            } else {
-//                sb.append(c);
-//            }
-//        }
-//
-//        result.add(sb.toString());
-//        while (!operatorStack.empty()) {
-//            result.add(operatorStack.pop().toString());
-//        }
-//
-//        System.out.println("RESULT: " + result);
-        return result;
+
+        List<String> postfix = new ArrayList<>();
+
+        StringBuffer sb = new StringBuffer();
+        Stack<String> operatorStack = new Stack<>();
+
+        for (char c : infix.toCharArray()) {
+            if (operator.getOperator().keySet().contains(Character.toString(c))) {
+                if (sb.length() > 0) {
+                    postfix.add(sb.toString());
+                    sb.delete(0, sb.length());
+                }
+
+                if (operatorStack.empty()) {
+                    operatorStack.push(Character.toString(c));
+                } else if (operator.getPriority().get(operator.getOperator().get(Character.toString(c))) > operator.getPriority().get(operator.getOperator().get(operatorStack.peek()))) {
+                    operatorStack.push(Character.toString(c));
+                } else {
+                    postfix.add(operatorStack.pop());
+                    operatorStack.push(Character.toString(c));
+                }
+
+            } else {
+                sb.append(c);
+            }
+            System.out.println("Now Character=" + c + ", postfix=" + postfix + ", operatorStack=" + operatorStack);
+        }
+
+        postfix.add(sb.toString());
+        while (!operatorStack.empty()) {
+            postfix.add(operatorStack.pop());
+        }
+        System.out.println("Result=" + postfix);
+        return postfix;
     }
 
 
