@@ -16,6 +16,53 @@ import spock.lang.Specification
 
 class PostfixCalculatorSpec extends Specification {
 
+
+    def "기본 구분자(,)를 사용했을 때의 infixToPostfix 결과 검증"() {
+
+        setup:
+        PostfixCalculator postfixCalculator = new PostfixCalculator()
+
+        expect:
+        postfixCalculator.infixToPostfix(infix) == postfix
+
+        where:
+        infix   | postfix
+        "0"     | ['0']
+        ",0"    | ['0', ',']
+        "0,"    | ['0', ',']
+        "1,2"   | ['1', '2', ',']
+        "1,2,3" | ['1', '2', ',', '3', ',']
+        "12,3"  | ['12', '3', ',']
+
+    }
+
+    def "구분자를 여러 개 사용했을 때의 infixToPostfix 결과 검증"() {
+
+        setup:
+        def inputOperator = ['+': 'Addition', '-': 'Subtraction', '*': 'Multiplication', '/': 'Division']
+        Operator operator = new OperatorImpl(inputOperator)
+        PostfixCalculator postfixCalculator = new PostfixCalculator(operator)
+
+        expect:
+        postfixCalculator.infixToPostfix(infix) == output
+
+        where:
+        infix      | output
+        "0"        | ['0']
+        "1+2"      | ['1', '2', '+']
+        "2-1"      | ['2', '1', '-']
+        "1*2"      | ['1', '2', '*']
+        "2/1"      | ['2', '1', '/']
+        "1+2+3"    | ['1', '2', '+', '3', '+']
+        "1*2+3"    | ['1', '2', '*', '3', '+']
+        "1+2*3"    | ['1', '2', '3', '*', '+']
+        "12+3"     | ['12', '3', '+']
+        "12+3-1*3" | ['12', '3', '+', '1', '3', '*', '-']
+        "12+6/2-1" | ['12', '6', '2', '/', '1', '-', '+']
+
+    }
+
+
     def "기본 구분자(,)를 사용했을 때의 계산 결과 검증"() {
 
         setup:
