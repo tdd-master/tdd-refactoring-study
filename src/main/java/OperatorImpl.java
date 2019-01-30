@@ -3,10 +3,10 @@ import java.util.Map;
 
 public class OperatorImpl implements Operator {
 
-    public String ADDITION = "ADDITION";
-    public String SUBTRACTION = "SUBTRACTION";
-    public String MULTIPLICATION = "MULTIPLICATION";
-    public String DIVISION = "DIVISION";
+//    public String ADDITION = "ADDITION";
+//    public String SUBTRACTION = "SUBTRACTION";
+//    public String MULTIPLICATION = "MULTIPLICATION";
+//    public String DIVISION = "DIVISION";
 
     int ADDITION_PRIORITY = 1;
     int SUBTRACTION_PRIORITY = 1;

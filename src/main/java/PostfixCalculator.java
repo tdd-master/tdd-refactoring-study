@@ -11,40 +11,44 @@ public class PostfixCalculator implements Calculator {
         operator = new OperatorImpl();
     }
 
-    public PostfixCalculator(Map<String, String> separators) {
-        operator = new OperatorImpl(separators);
+    public PostfixCalculator(Operator customOperator){
+        operator = customOperator;
     }
 
     @Override
     public int calculate(String input) {
 
-//        List<String> postfixList = infixToPostfix(input);
-//
-//        if (postfixList.size() < 3) {
-//            return Integer.parseInt(postfixList.get(0));
-//        }
-//
-//        Stack<String> postfixStack = new Stack<>();
-//
-//        for (String s : postfixList) {
-//            if (op.getOperators().keySet().contains(s)) {
-//                String tmpOp = op.getOperators().get(s);
-//                if (op.PLUS.equals(tmpOp)) {
-//                    postfixStack.push(Integer.toString(Integer.parseInt(postfixStack.pop()) + Integer.parseInt(postfixStack.pop())));
-//                } else if (op.MINUS.equals(tmpOp)) {
-//                    postfixStack.push(Integer.toString(Integer.parseInt(postfixStack.pop()) - Integer.parseInt(postfixStack.pop())));
-//                } else if (op.MULTIPLY.equals(tmpOp)) {
-//                    postfixStack.push(Integer.toString(Integer.parseInt(postfixStack.pop()) * Integer.parseInt(postfixStack.pop())));
-//                } else if (op.DIVISION.equals(tmpOp)) { // 나누기는 수정해야 함
-//                    postfixStack.push(Integer.toString(Integer.parseInt(postfixStack.pop()) / Integer.parseInt(postfixStack.pop())));
-//                }
-//            } else {
-//                postfixStack.push(s);
-//            }
-//        }
-//
-//        return Integer.parseInt(postfixStack.pop());
-        return 0;
+        List<String> postfix = infixToPostfix(input);
+        if (postfix.size() == 1) {
+            return Integer.parseInt(postfix.get(0));
+        }
+
+        Stack<String> operandStack = new Stack<>();
+        postfix.forEach(elements -> {
+
+            if (operator.getOperator().keySet().contains(elements)) {
+                String nowOperator = operator.getOperator().get(elements);
+                int operand_2 = Integer.parseInt(operandStack.pop());
+                int operand_1 = Integer.parseInt(operandStack.pop());
+
+                if (operator.ADDITION.equals(nowOperator)) {
+                    operandStack.push(Integer.toString(operand_1 + operand_2));
+                } else if (operator.SUBTRACTION.equals(nowOperator)) {
+                    operandStack.push(Integer.toString(operand_1 - operand_2));
+                } else if (operator.MULTIPLICATION.equals(nowOperator)) {
+                    operandStack.push(Integer.toString(operand_1 * operand_2));
+                } else if (operator.DIVISION.equals(nowOperator)) {
+                    operandStack.push(Integer.toString(Math.round(operand_1 / operand_2)));
+                }
+
+            } else {
+                operandStack.push(elements);
+            }
+
+
+        });
+
+        return Integer.parseInt(operandStack.pop());
     }
 
     public List<String> infixToPostfix(String infix) {
@@ -73,14 +77,14 @@ public class PostfixCalculator implements Calculator {
             } else {
                 sb.append(c);
             }
-            System.out.println("Now Character=" + c + ", postfix=" + postfix + ", operatorStack=" + operatorStack);
+//            System.out.println("Now Character=" + c + ", postfix=" + postfix + ", operatorStack=" + operatorStack);
         }
 
         postfix.add(sb.toString());
         while (!operatorStack.empty()) {
             postfix.add(operatorStack.pop());
         }
-        System.out.println("Result=" + postfix);
+        System.out.println("Postfix" + postfix);
         return postfix;
     }
 
