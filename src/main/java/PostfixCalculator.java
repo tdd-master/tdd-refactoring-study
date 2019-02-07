@@ -23,30 +23,31 @@ public class PostfixCalculator implements Calculator {
         }
 
         Stack<Integer> operandStack = new Stack<>();
-
         postfix.forEach(elements -> {
-
             if (isOperator(elements)) {
-                String nowOperator = operator.getOperator().get(elements);
-                int operand_2 = operandStack.pop();
-                int operand_1 = operandStack.pop();
-
-                if (operator.ADDITION.equals(nowOperator)) {
-                    operandStack.push(operand_1 + operand_2);
-                } else if (operator.SUBTRACTION.equals(nowOperator)) {
-                    operandStack.push(operand_1 - operand_2);
-                } else if (operator.MULTIPLICATION.equals(nowOperator)) {
-                    operandStack.push(operand_1 * operand_2);
-                } else if (operator.DIVISION.equals(nowOperator)) {
-                    operandStack.push(Math.round(operand_1 / operand_2));
-                }
-
+                calculateAndPushOperandStack(operandStack, elements);
             } else {
                 operandStack.push(Integer.parseInt(elements));
             }
         });
 
         return operandStack.pop();
+    }
+
+    private void calculateAndPushOperandStack(Stack<Integer> operandStack, String operatorSign) {
+        String operatorString = operator.getOperator(operatorSign);
+        int operand_2 = operandStack.pop();
+        int operand_1 = operandStack.pop();
+
+        if (operator.ADDITION.equals(operatorString)) {
+            operandStack.push(operand_1 + operand_2);
+        } else if (operator.SUBTRACTION.equals(operatorString)) {
+            operandStack.push(operand_1 - operand_2);
+        } else if (operator.MULTIPLICATION.equals(operatorString)) {
+            operandStack.push(operand_1 * operand_2);
+        } else if (operator.DIVISION.equals(operatorString)) {
+            operandStack.push(Math.round(operand_1 / operand_2));
+        }
     }
 
     public List<String> infixToPostfix(String infix) {
@@ -57,22 +58,13 @@ public class PostfixCalculator implements Calculator {
         Stack<String> operatorStack = new Stack<>();
 
         for (char c : infix.toCharArray()) {
-
             if (isOperator(Character.toString(c))) {
+                String operatorSign = Character.toString(c);
                 if (sb.length() > 0) {
                     postfix.add(sb.toString());
                     sb.delete(0, sb.length());
                 }
-
-                if (operatorStack.empty()) {
-                    operatorStack.push(Character.toString(c));
-                } else if (operator.getPriority().get(operator.getOperator().get(Character.toString(c))) > operator.getPriority().get(operator.getOperator().get(operatorStack.peek()))) {
-                    operatorStack.push(Character.toString(c));
-                } else {
-                    postfix.add(operatorStack.pop());
-                    operatorStack.push(Character.toString(c));
-                }
-
+                pushOperatorStack(postfix, operatorStack, operatorSign);
             } else {
                 sb.append(c);
             }
@@ -86,8 +78,19 @@ public class PostfixCalculator implements Calculator {
         return postfix;
     }
 
+    private void pushOperatorStack(List<String> postfix, Stack<String> operatorStack, String operatorSign) {
+        if (operatorStack.empty()) {
+            operatorStack.push(operatorSign);
+        } else if (operator.getPriority(operator.getOperator(operatorSign)) > operator.getPriority(operator.getOperator(operatorStack.peek()))) {
+            operatorStack.push(operatorSign);
+        } else {
+            postfix.add(operatorStack.pop());
+            operatorStack.push(operatorSign);
+        }
+    }
+
     private boolean isOperator(String s) {
-        return operator.getOperator().keySet().contains(s);
+        return operator.getOperatorMap().keySet().contains(s);
     }
 
 }
