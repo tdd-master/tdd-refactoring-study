@@ -2,19 +2,19 @@
 
 # Members
 
-| ID | Languages | Remarks |
-|----------|:-------------:|------:|
-| eyotaku | Java | |
-| pamiers | Java | |
-| soeque | Python | |
+| ID | Languages | Branch_Suffix | Remarks |
+|----------|:------:|------:|------:|
+| eyotaku | Java | eunyoung | |
+| pamiers | Java | hosik | |
+| soeque | Python |jun | |
 
 
 # Schedule
 
-| No | Date   |      Place      |  Contents | 참고자료 |
-|----------|:-------------:|------:|------:|------:|
-| 1 | Tue, Jan 22 | Video Chat | 문자열 계산기 (1) | 백명석님 동영상 1,2강 |
-| 2 | Thr, Feb 7 |  Video Chat | 문자열 계산기 (2) |백명석님 동영상 3,4강 |
+| No | Date   |      Place      |Branch_Prefix |  Contents | Remarks |
+|----------|:-------------:|------:|------:|------:|------:|
+| 1 | Tue, Jan 22 | Video Chat | calculator | 문자열 계산기 (1) | 백명석님 동영상 1,2강 |
+| 2 | Thr, Feb 7 |  Video Chat | calculator |문자열 계산기 (2) |백명석님 동영상 3,4강 |
 | | | | |
 
 [In detail](https://github.com/orgs/tdd-master/projects/2)
