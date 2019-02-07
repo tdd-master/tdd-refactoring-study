@@ -59,23 +59,26 @@ public class PostfixCalculator implements Calculator {
 
         for (char c : infix.toCharArray()) {
             if (isOperator(Character.toString(c))) {
-                String operatorSign = Character.toString(c);
-                if (sb.length() > 0) {
-                    postfix.add(sb.toString());
-                    sb.delete(0, sb.length());
-                }
-                pushOperatorStack(postfix, operatorStack, operatorSign);
+                addOperand(postfix, sb);
+                pushOperatorStack(postfix, operatorStack, Character.toString(c));
             } else {
                 sb.append(c);
             }
         }
 
-        postfix.add(sb.toString());
+        addOperand(postfix, sb);
         while (!operatorStack.empty()) {
             postfix.add(operatorStack.pop());
         }
 
         return postfix;
+    }
+
+    private void addOperand(List<String> postfix, StringBuffer sb) {
+        if (sb.length() > 0) {
+            postfix.add(sb.toString());
+            sb.delete(0, sb.length());
+        }
     }
 
     private void pushOperatorStack(List<String> postfix, Stack<String> operatorStack, String operatorSign) {
