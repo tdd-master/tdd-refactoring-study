@@ -1,4 +1,25 @@
 # tdd-refactoring-study
+
+# Members
+
+| ID | Languages | Remarks |
+|----------|:-------------:|------:|
+| eyotaku | Java | |
+| pamiers | Java | |
+| soeque | Python | |
+
+
+# Schedule
+
+| No | Date   |      Place      |  Contents | 참고자료 |
+|----------|:-------------:|------:|------:|------:|
+| 1 | Tue, Jan 22 | Video Chat | 문자열 계산기 (1) | 백명석님 동영상 1,2강 |
+| 2 | Thr, Feb 7 |  Video Chat | 문자열 계산기 (2) |백명석님 동영상 3,4강 |
+| | | | |
+
+[In detail](https://github.com/orgs/tdd-master/projects/2)
+
+# How to
 1. 토이 프로젝으로 각자 테스트코드 및 프로덕션 코드 만들면서, tdd, refactoring 연습
 2. Refactoring 후 코드 스멜 찾기
 3. SOLID 원칙 위반 사항이 있는지 찾기
