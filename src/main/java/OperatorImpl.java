@@ -3,43 +3,36 @@ import java.util.Map;
 
 public class OperatorImpl implements Operator {
 
-//    public String ADDITION = "ADDITION";
-//    public String SUBTRACTION = "SUBTRACTION";
-//    public String MULTIPLICATION = "MULTIPLICATION";
-//    public String DIVISION = "DIVISION";
-
-    int ADDITION_PRIORITY = 1;
-    int SUBTRACTION_PRIORITY = 1;
-    int MULTIPLICATION_PRIORITY = 2;
-    int DIVISION_PRIORITY = 2;
-
     Map<String, String> operator = new HashMap<>();
     Map<String, Integer> priority = new HashMap<>();
 
     public OperatorImpl() {
-        operator.put(",", ADDITION);
-        priority.put(ADDITION, ADDITION_PRIORITY);
+        putOperatorMaps(",", ADDITION, ADDITION_PRIORITY);
     }
 
     public OperatorImpl(Map<String, String> inputOperators) {
-        inputOperators.forEach((k, v) -> {
-            if (ADDITION.equals(v.toUpperCase())) {
-                operator.put(k, ADDITION);
-                priority.put(ADDITION, ADDITION_PRIORITY);
-            } else if (SUBTRACTION.equals(v.toUpperCase())) {
-                operator.put(k, SUBTRACTION);
-                priority.put(SUBTRACTION, SUBTRACTION_PRIORITY);
-            } else if (MULTIPLICATION.equals(v.toUpperCase())) {
-                operator.put(k, MULTIPLICATION);
-                priority.put(MULTIPLICATION, MULTIPLICATION_PRIORITY);
-            } else if (DIVISION.equals(v.toUpperCase())) {
-                operator.put(k, DIVISION);
-                priority.put(DIVISION, DIVISION_PRIORITY);
+        inputOperators.forEach((inputOperatorSign, inputOperatorString) -> {
+            if (compareOperatorString(inputOperatorString, ADDITION)) {
+                putOperatorMaps(inputOperatorSign, ADDITION, ADDITION_PRIORITY);
+            } else if (compareOperatorString(inputOperatorString, SUBTRACTION)) {
+                putOperatorMaps(inputOperatorSign, SUBTRACTION, SUBTRACTION_PRIORITY);
+            } else if (compareOperatorString(inputOperatorString, MULTIPLICATION)) {
+                putOperatorMaps(inputOperatorSign, MULTIPLICATION, MULTIPLICATION_PRIORITY);
+            } else if (compareOperatorString(inputOperatorString, DIVISION)) {
+                putOperatorMaps(inputOperatorSign, DIVISION, DIVISION_PRIORITY);
             } else {
                 throw new IllegalArgumentException();
             }
         });
+    }
 
+    private boolean compareOperatorString(String inputOperatorString, String operatorString) {
+        return operatorString.equals(inputOperatorString.toUpperCase());
+    }
+
+    private void putOperatorMaps(String operatorSign, String operatorString, int operatorPriority) {
+        operator.put(operatorSign, operatorString);
+        priority.put(operatorString, operatorPriority);
     }
 
     public Map<String, String> getOperator() {
