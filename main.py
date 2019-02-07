@@ -79,7 +79,7 @@ class Calculator(PreProcess, metaclass=ABCMeta):
     def print_out(self):
         """Print the output
         """
-        print(self._output)
+        print(self._value[1])
 
     def run_preprocess(self, _input, reset):
         """Run preprocess"""
@@ -107,14 +107,21 @@ class SingleCharCalculator(Calculator):
         $ python main.py -i='5+5+5'
     """
     def __init__(self, sep):
+        """
+        Args:
+            sep: string
+
+        Returns:
+            list: the first is input, the last is output
+        """
         super(SingleCharCalculator, self).__init__()
         self._sep = sep
-        self.reset_output_to_0()
+        self._value = [0, 0]
 
     def reset_output_to_0(self):
-        """ Remove the previos output
+        """ Remove the previous output
         """
-        self._output = 0
+        self._value[1] = 0
 
     def get_input(self, _input):
         """Get the input
@@ -125,14 +132,21 @@ class SingleCharCalculator(Calculator):
         """Insert the input as Chars
         """
         self.check_input_type(_input)
-        self._input = self.get_input(_input)
+        self._value[0] = self.get_input(_input)
 
     def check_input_type(self, _input):
         """Check the input as Chars
         """
-        assert isinstance(_input, str)
+        self.check_input_type_is_str()
 
     def convert_input(self, _input):
+        self.convert_input_string_to_list(_input)
+
+
+    def check_input_type_is_str(self, _input):
+        assert isinstance(_input, str)
+
+    def convert_input_string_to_list(self, _input):
         """ convert input string into list.
 
         Args:
@@ -150,15 +164,15 @@ class SingleCharCalculator(Calculator):
     def merge_input_output(self):
         """Merge old_input(previous output) and new_input
         """
-        old_input = self.convert_input(str(self._output))
-        new_input = self.convert_input(self._input)
+        old_input = self.convert_input(str(self._value[1]))
+        new_input = self.convert_input(self._value[0])
         old_input.extend(new_input)
-        self._input = old_input
+        self._value[0] = old_input
 
     def operator(self):
         """sum the list
         """
-        self._output = sum(self._input)
+        self._value[1] = sum(self._value[0])
 
 
 if __name__ == '__main__':

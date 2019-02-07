@@ -60,35 +60,35 @@ class TestCharCalculator(unittest.TestCase):
 
     def test_reset_output(self):
         self.Cal.reset_output_to_0()
-        self.assertEqual(self.Cal._output, 0)
+        self.assertEqual(self.Cal._value[1], 0)
 
     def test_merge_input_output(self):
         self.Cal.insert_input_into_mem('3')
         self.Cal.merge_input_output()
-        self.assertEqual(self.Cal._input, [0, 3])
+        self.assertEqual(self.Cal._value[0], [0, 3])
 
     def test_operator(self):
         self.Cal.insert_input_into_mem('3, 3')
         self.Cal.merge_input_output()
         self.Cal.operator()
-        self.assertEqual(self.Cal._input, [0, 3, 3])
-        self.assertEqual(self.Cal._output, 6)
+        self.assertEqual(self.Cal._value[0], [0, 3, 3])
+        self.assertEqual(self.Cal._value[1], 6)
 
     def test_loop_operator(self):
         self.Cal.insert_input_into_mem('3, 3')
         self.Cal.merge_input_output()
         self.Cal.operator()
-        self.assertEqual(self.Cal._output, 6)
+        self.assertEqual(self.Cal._value[1], 6)
         
         self.Cal.insert_input_into_mem('6, 3')
         self.Cal.merge_input_output()
         self.Cal.operator()
-        self.assertEqual(self.Cal._output, 6+6+3)
+        self.assertEqual(self.Cal._value[1], 6+6+3)
 
     def test_task_input_output(self):
         for i,j in zip(self.test_chars, self.test_answer):
             self.Cal.run(i)
-            self.assertEqual(self.Cal._output, j)
+            self.assertEqual(self.Cal._value[1], j)
 
 if __name__ == '__main__':
     unittest.main()
