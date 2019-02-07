@@ -137,11 +137,10 @@ class SingleCharCalculator(Calculator):
     def check_input_type(self, _input):
         """Check the input as Chars
         """
-        self.check_input_type_is_str()
+        self.check_input_type_is_str(_input)
 
     def convert_input(self, _input):
-        self.convert_input_string_to_list(_input)
-
+        return self.convert_input_string_to_list(_input)
 
     def check_input_type_is_str(self, _input):
         assert isinstance(_input, str)
