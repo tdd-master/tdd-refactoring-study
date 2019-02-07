@@ -12,8 +12,11 @@ public interface Operator {
     int MULTIPLICATION_PRIORITY = 2;
     int DIVISION_PRIORITY = 2;
 
-    Map<String, String> getOperator();
+    Map<String, String> getOperatorMap();
 
-    Map<String, Integer> getPriority();
+    String getOperator(String operatorSign);
 
+    Map<String, Integer> getPriorityMap();
+
+    int getPriority(String operatorString);
 }

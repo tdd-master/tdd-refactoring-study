@@ -8,8 +8,8 @@ class OperatorImplSpec extends Specification {
         Operator o = new OperatorImpl()
 
         when:
-        def operator = o.getOperator()
-        def priority = o.getPriority()
+        def operator = o.getOperatorMap()
+        def priority = o.getPriorityMap()
 
         then:
         operator == [',': 'ADDITION']
@@ -25,8 +25,8 @@ class OperatorImplSpec extends Specification {
         Operator o = new OperatorImpl(inputOperator)
 
         when:
-        def operator = o.getOperator()
-        def priority = o.getPriority()
+        def operator = o.getOperatorMap()
+        def priority = o.getPriorityMap()
 
         then:
         operator == ['+': 'ADDITION', '-': 'SUBTRACTION', '*': 'MULTIPLICATION', '/': 'DIVISION']

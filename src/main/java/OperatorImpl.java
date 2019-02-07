@@ -3,8 +3,8 @@ import java.util.Map;
 
 public class OperatorImpl implements Operator {
 
-    Map<String, String> operator = new HashMap<>();
-    Map<String, Integer> priority = new HashMap<>();
+    Map<String, String> operatorMap = new HashMap<>();
+    Map<String, Integer> priorityMap = new HashMap<>();
 
     public OperatorImpl() {
         putOperatorMaps(",", ADDITION, ADDITION_PRIORITY);
@@ -31,24 +31,36 @@ public class OperatorImpl implements Operator {
     }
 
     private void putOperatorMaps(String operatorSign, String operatorString, int operatorPriority) {
-        operator.put(operatorSign, operatorString);
-        priority.put(operatorString, operatorPriority);
+        operatorMap.put(operatorSign, operatorString);
+        priorityMap.put(operatorString, operatorPriority);
     }
 
-    public Map<String, String> getOperator() {
-        return operator;
+    @Override
+    public Map<String, String> getOperatorMap() {
+        return operatorMap;
     }
 
-    public void setOperator(Map<String, String> operator) {
-        this.operator = operator;
+    public void setOperatorMap(Map<String, String> operatorMap) {
+        this.operatorMap = operatorMap;
     }
 
-    public Map<String, Integer> getPriority() {
-        return priority;
+    @Override
+    public Map<String, Integer> getPriorityMap() {
+        return priorityMap;
     }
 
-    public void setPriority(Map<String, Integer> priority) {
-        this.priority = priority;
+    public void setPriorityMap(Map<String, Integer> priorityMap) {
+        this.priorityMap = priorityMap;
+    }
+
+    @Override
+    public String getOperator(String operatorSign) {
+        return this.operatorMap.get(operatorSign);
+    }
+
+    @Override
+    public int getPriority(String operatorString) {
+        return this.priorityMap.get(operatorString);
     }
 
 }
