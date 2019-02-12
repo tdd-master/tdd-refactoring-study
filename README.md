@@ -25,3 +25,28 @@
 3. SOLID 원칙 위반 사항이 있는지 찾기
 4. 2, 3 반복
 5. 평가
+
+
+## Environments
+
+| Python Ver     | Build         | Codecov  |
+| :-------------:|:-------------:|:--------:|
+| 3.6 | [![CircleCI](https://circleci.com/gh/tdd-master/tdd-refactoring-study/tree/calculator%2Fjun.svg?style=svg)](https://circleci.com/gh/tdd-master/tdd-refactoring-study/tree/calculator%2Fjun) | [![codecov](https://codecov.io/gh/tdd-master/tdd-refactoring-study/branch/calculator%2Fjun/graph/badge.svg)](https://codecov.io/gh/tdd-master/tdd-refactoring-study) |
+
+```
+Python 3.6
+```
+
+### Example 2. 자판기
+
+#### How to run
+
+```
+python main.py --coin=500 --itmes='milk'
+```
+
+#### How to test
+
+```
+python -m pytest tests/
+```
