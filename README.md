@@ -31,7 +31,7 @@
 
 | Python Ver     | Build         | Codecov  |
 | :-------------:|:-------------:|:--------:|
-| 3.6 | [![CircleCI](https://circleci.com/gh/tdd-master/tdd-refactoring-study/tree/calculator%2Fjun.svg?style=svg)](https://circleci.com/gh/tdd-master/tdd-refactoring-study/tree/calculator%2Fjun) | [![codecov](https://codecov.io/gh/tdd-master/tdd-refactoring-study/branch/calculator%2Fjun/graph/badge.svg)](https://codecov.io/gh/tdd-master/tdd-refactoring-study) |
+| 3.6 | [![CircleCI](https://circleci.com/gh/tdd-master/tdd-refactoring-study/tree/vendigmachine%2Fjun.svg?style=svg)](https://circleci.com/gh/tdd-master/tdd-refactoring-study/tree/calculator%2Fjun) | [![codecov](https://codecov.io/gh/tdd-master/tdd-refactoring-study/branch/calculator%2Fjun/graph/badge.svg)](https://codecov.io/gh/tdd-master/tdd-refactoring-study) |
 
 ```
 Python 3.6
