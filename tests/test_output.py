@@ -19,7 +19,7 @@
 
 import unittest
 import pytest
-from main import MachineInput, MachineOutput
+from main import MachineInput, MachineOutput, Items, VendingMachine
 
 class TestOutPut(unittest.TestCase):
     def setUp(self):
@@ -35,12 +35,32 @@ class TestInput(unittest.TestCase):
     def setUp(self):
         self.coin = 400
         self.key = 'milk'
-        self.selected_items = {'milk' : 500}
-        self.INPUT = MachineInput()
+        self.INPUT = MachineInput({'milk' : 600})
 
     @pytest.mark.xfail(raises=AssertionError)
     def test_input_less_than_value(self):
-        self.INPUT.check_coin_item(self.coin, self.selected_items.get(self.key))
+        self.INPUT._check.check_coin_value(self.coin, self.INPUT.items.get(self.key))
+
+class TestItem(unittest.TestCase):
+    def setUp(self):
+        self.a = Items({'milk':600})
+        self.b = Items({'water':500})
+
+    def test_add(self):
+        c = self.a + self.b
+        self.assertEqual(list(c.keys()), ['milk', 'water'])
+
+class TestVendingMachine(unittest.TestCase):
+    def setUp(self):
+        self.vending = VendingMachine()
+
+    def test_insert_coin(self):
+        self.vending.insert_coin(50)
+        self.assertEqual(self.vending._input.coin, 50)
+
+    def test_insert_items(self):
+        a = MachineInput({'milk':600})
+        b = MachineInput({'water':500})
 
 
 if __name__ == '__main__':
