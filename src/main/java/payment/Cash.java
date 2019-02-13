@@ -2,33 +2,33 @@ package payment;
 
 public class Cash implements Payment {
 
-    int balance;
+    int change;
 
-    Cash(int balance) {
-        this.balance = balance;
+    Cash(int change) {
+        this.change = change;
     }
 
     @Override
     public void pay(int productPrice) {
-        int expectBalance = this.balance - productPrice;
+        int expectBalance = this.change - productPrice;
         if (expectBalance < 0) {
             throw new IllegalArgumentException();
         } else {
-            this.balance = expectBalance;
+            this.change = expectBalance;
         }
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public void setChange(int change) {
+        this.change = change;
     }
 
     @Override
-    public int getBalance() {
-        return balance;
+    public int getChange() {
+        return change;
     }
 
     public void addAdditionalCash(int additionalCash) {
-        this.balance += additionalCash;
+        this.change += additionalCash;
     }
 
 }

@@ -2,7 +2,7 @@ package payment;
 
 public interface Payment {
 
-    int getBalance();
+    int getChange();
 
     void pay(int productPrice);
 

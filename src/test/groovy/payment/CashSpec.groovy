@@ -10,7 +10,7 @@ class CashSpec extends Specification {
         Cash cash = new Cash(10000)
 
         when:
-        def balance = cash.getBalance()
+        def balance = cash.getChange()
 
         then:
         balance == 10000
@@ -25,7 +25,7 @@ class CashSpec extends Specification {
 
         expect:
         cash.pay(productPrice)
-        balance == cash.getBalance()
+        balance == cash.getChange()
 
         where:
         productPrice | balance
