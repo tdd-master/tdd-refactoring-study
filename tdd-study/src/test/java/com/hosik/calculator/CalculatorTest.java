@@ -53,7 +53,7 @@ public class CalculatorTest {
     @Test(expected = IllegalArgumentException.class)
     public void input_empty_test() {
         Calculator calculator = new Calculator();
-        calculator.calc("","");
+        calculator.calc("", "+");
     }
 
     @Test
@@ -72,8 +72,8 @@ public class CalculatorTest {
     public void sum_test() {
         List<String> sep = Arrays.asList(":", "m");
         Calculator calculator = new Calculator(sep);
-        double result = calculator.calc("1:2:3m4", "+");
-        assertEquals(10, result, 0);
+        int result = calculator.calc("1:2:3m4", "+");
+        assertEquals(10, result);
     }
 
     @Test
