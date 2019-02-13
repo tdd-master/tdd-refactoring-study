@@ -1,9 +1,9 @@
 package com.hosik.money;
 
-import com.hosik.items.Product;
+import com.hosik.product.Product;
 
 public interface MoneyStorage {
     void fillUpMoney(long money);
     long getBalance();
-    void calculate(Product product, int coin);
+    void addMoney(int price);
 }

@@ -1,5 +1,7 @@
 package com.hosik.items;
 
+import com.hosik.product.Product;
+
 public interface Item {
     Product getProduct();
     long getChange();

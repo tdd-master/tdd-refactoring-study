@@ -1,6 +1,6 @@
 package com.hosik.money;
 
-import com.hosik.items.Product;
+import com.hosik.product.Product;
 
 public class MoneyStorageImpl implements MoneyStorage{
     private long balance;
@@ -16,8 +16,8 @@ public class MoneyStorageImpl implements MoneyStorage{
     }
 
     @Override
-    public void calculate(Product product, int coin) {
-        long change = coin - product.getPrice();
-        balance -= change;
+    public void addMoney(int money) {
+        this.balance += money;
     }
+
 }

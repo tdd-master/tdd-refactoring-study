@@ -1,4 +1,4 @@
-package com.hosik.items;
+package com.hosik.product;
 
 public class Product {
     private String name;
@@ -17,6 +17,10 @@ public class Product {
 
     public int getPrice() {
         return price;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public int getQuantity() {

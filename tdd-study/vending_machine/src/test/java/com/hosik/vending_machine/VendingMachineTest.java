@@ -1,6 +1,7 @@
 package com.hosik.vending_machine;
 
-import com.hosik.items.Product;
+import com.hosik.items.Item;
+import com.hosik.product.Product;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,36 +25,43 @@ public class VendingMachineTest {
 
     @Test
     public void should_fillUpMoney() throws Exception {
-        VendingMachine vendingMachine = new VendingMachine();
         vendingMachine.fillUpMoney(100000);
         assertThat(100000L, is(vendingMachine.getBalance()));
     }
 
-    @Test
-    public void should_get_product_with_name() throws Exception {
-        Product product = vendingMachine.getProduct("coke");
-        assertThat(product.getName(), is("coke"));
-    }
-
     @Test(expected = IllegalArgumentException.class)
-    public void should_IllegeralArgumenException_when_no_matching_product() throws Exception {
-        Product product = vendingMachine.getProduct("drpepper");
-    }
-
-    @Test
     public void could_not_buy_when_enough_money() throws Exception{
         vendingMachine.insertCoin(900);
-        Product product = vendingMachine.getProduct("coke");
-        boolean result = vendingMachine.isPossible(product);
-        assertThat(false, is(result));
+        vendingMachine.buy("coke");
     }
 
     @Test
     public void could_buy_product() throws Exception {
         vendingMachine.insertCoin(1000);
-        Product product = vendingMachine.buy("coke");
-        assertThat(product.getName(), is("coke"));
+        Item item = vendingMachine.buy("coke");
+        assertThat(item.getProduct().getName(), is("coke"));
     }
 
+    @Test
+    public void should_get_change_zero() throws Exception {
+        vendingMachine.insertCoin(1000);
+        Item item = vendingMachine.buy("coke");
+        assertThat(item.getChange(), is(0L));
+    }
+
+    @Test
+    public void should_get_change_600() throws Exception {
+        vendingMachine.insertCoin(2000);
+        Item item = vendingMachine.buy("cider");
+        assertThat(item.getChange(), is(600L));
+    }
+
+    @Test
+    public void should_gain_money() throws Exception {
+        vendingMachine.fillUpMoney(10000);
+        vendingMachine.insertCoin(10000);
+        Item item = vendingMachine.buy("coke");
+        assertThat(vendingMachine.getBalance(), is(11000L));
+    }
 
 }

@@ -4,10 +4,13 @@ import com.hosik.items.Item;
 import com.hosik.items.ItemImpl;
 import com.hosik.money.MoneyStorage;
 import com.hosik.money.MoneyStorageImpl;
-import com.hosik.items.Product;
+import com.hosik.product.Product;
+import com.hosik.product.ProductStorage;
+import com.hosik.product.ProductStorageImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /*
 1. 물건 넣기
@@ -16,21 +19,17 @@ import java.util.List;
 4. 돈 받기
  */
 public class VendingMachine {
-    private List<Product> productList;
     private MoneyStorage moneyStorage;
+    private ProductStorage productStorage;
     private int coin = 0;
 
     public VendingMachine() {
-        productList = new ArrayList<>();
         moneyStorage = new MoneyStorageImpl();
+        productStorage = new ProductStorageImpl();
     }
 
     public void addProduct(Product product) {
-        productList.add(product);
-    }
-
-    public List<Product> getProductList() {
-        return productList;
+        productStorage.fillUpProduct(product);
     }
 
     public void fillUpMoney(int money) {
@@ -45,28 +44,22 @@ public class VendingMachine {
         this.coin = coin;
     }
 
-    public Product getProduct(String name) {
-        return productList.stream()
-                .filter(p -> p.getName().equals(name))
-                .findAny()
-                .orElseThrow(IllegalArgumentException::new);
-    }
-
-    public boolean isPossible(Product product) {
-        Product item = getProduct(product.getName());
-        return coin - item.getPrice() >= 0;
-    }
-
     public Item buy(String name) {
-        Product product = getProduct(name);
-        if (isPossible(product)) {
-            coin -= product.getPrice();
-            Item item = new ItemImpl();
+        Product product = productStorage.takeOutProduct(name);
+        return Optional.ofNullable(getItem(product)).orElseThrow(IllegalArgumentException::new);
+    }
+
+    private Item getItem(Product product) {
+        Item item = new ItemImpl();
+        int change = coin - product.getPrice();
+        if (change >= 0) {
             item.setProduct(product);
-            item.setChange(coin);
+            item.setChange(change);
+            product.setQuantity(product.getQuantity() - 1);
+            productStorage.fillUpProduct(product);
+            moneyStorage.addMoney(product.getPrice());
             return item;
-        } else {
-            return null;
         }
+        return null;
     }
 }

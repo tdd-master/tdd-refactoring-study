@@ -1,5 +1,7 @@
 package com.hosik.items;
 
+import com.hosik.product.Product;
+
 public class ItemImpl implements Item {
     private Product product;
     private long change;
