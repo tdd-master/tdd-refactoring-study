@@ -9,7 +9,7 @@ class BeverageSpec extends Specification {
         setup:
         Beverage beverage = new Beverage("실론티", 800)
 
-        expect:
+        when:
         def productName = beverage.getName()
         def productPrice = beverage.getPrice()
 

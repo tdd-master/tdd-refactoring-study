@@ -35,7 +35,7 @@ class VendingMachineSpec extends Specification {
         Cash cash = new Cash(inputAmount)
         vendingMachine.purchase(cash)
         vendingMachine.selectProduct(index)
-        balance = cash.getBalance()
+        balance == cash.getBalance()
 
         where:
         inputAmount | index | balance
@@ -56,8 +56,8 @@ class VendingMachineSpec extends Specification {
         Cash cash = new Cash(inputAmount)
         vendingMachine.purchase(cash)
         vendingMachine.selectProduct(index)
-        balance = cash.getBalance()
-        change = vendingMachine.selectGiveChangeButton()
+        balance == cash.getBalance()
+        change == vendingMachine.getChange(cash)
 
         where:
         inputAmount | index | balance | change
