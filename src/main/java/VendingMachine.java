@@ -2,17 +2,13 @@ import payment.Payment;
 import product.Product;
 
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class VendingMachine {
 
     List<Product> products;
-    long watingTimeMillis = 5000;
-
     Queue<Product> selectedProducts; // polling
-    long lastSelectTime;
 
     VendingMachine(List<Product> products) {
         this.products = products;
@@ -20,33 +16,27 @@ public class VendingMachine {
     }
 
     public int purchase(Payment payment) {
-        this.lastSelectTime = System.currentTimeMillis();
 
-        while (payment.getBalance() > 0) {
+        while (payment.getChange() > 0) {
             if (!selectedProducts.isEmpty()) {
                 try {
-                    payment.pay(selectedProducts.poll().getPrice());
+                    payment.pay(selectedProducts.peek().getPrice());
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     return getChange(payment);
                 }
             }
-            if (System.currentTimeMillis() - lastSelectTime > watingTimeMillis) {
-                System.out.println("Timeout!");
-                return getChange(payment);
-            }
         }
-
-        return 0;
+        return getChange(payment);
     }
 
     public void selectProduct(int productIndex) {
         this.selectedProducts.add(this.products.get(productIndex));
-        this.lastSelectTime = System.currentTimeMillis();
+
     }
 
     public int getChange(Payment payment) {
-        return payment.getBalance();
+        return payment.getChange();
     }
 
     public List<Product> getProducts() {
@@ -56,7 +46,6 @@ public class VendingMachine {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
-
 
 }
 
