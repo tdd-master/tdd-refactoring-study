@@ -23,7 +23,7 @@ class VendingMachineSpec extends Specification {
     }
 
 
-    def "자판기에 현금투입, 음료구매 후 잔액 확인"() {
+    def "자판기에 현금투입, 음료 하나 구매 후 잔액 확인"() {
 
         setup:
         def beverages = [new Beverage("ldh", 600), new Beverage("coffee", 700)]
@@ -40,6 +40,24 @@ class VendingMachineSpec extends Specification {
         600         | 0     | 0
         1000        | 1     | 300
         700         | 1     | 0
+
+    }
+
+    def "자판기에 현금투입, 음료 하나 이상 구매 후 잔액 확인"() {
+
+        setup:
+        def beverages = [new Beverage("ldh", 600), new Beverage("coffee", 700)]
+        VendingMachine vendingMachine = new VendingMachine(beverages)
+
+        when:
+        Cash cash = new Cash(2000)
+        vendingMachine.selectProduct(0)
+        vendingMachine.selectProduct(1)
+        def change = vendingMachine.purchase(cash)
+
+        then:
+        change == 700
+
 
     }
 

@@ -17,21 +17,19 @@ public class VendingMachine {
 
     public int purchase(Payment payment) {
 
-        while (payment.getChange() > 0) {
-            if (!selectedProducts.isEmpty()) {
-                try {
-                    payment.pay(selectedProducts.peek().getPrice());
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    return getChange(payment);
-                }
+        while (!selectedProducts.isEmpty()) {
+            try {
+                payment.pay(selectedProducts.poll().getPrice());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return getChange(payment);
             }
         }
         return getChange(payment);
     }
 
     public void selectProduct(int productIndex) {
-        this.selectedProducts.add(this.products.get(productIndex));
+        this.selectedProducts.offer(this.products.get(productIndex));
 
     }
 
