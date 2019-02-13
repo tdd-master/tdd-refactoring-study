@@ -1,6 +1,5 @@
 package product
 
-import payment.Cash
 import spock.lang.Specification
 
 class BeverageSpec extends Specification {
@@ -10,7 +9,7 @@ class BeverageSpec extends Specification {
         setup:
         Beverage beverage = new Beverage("실론티", 800)
 
-        when:
+        expect:
         def productName = beverage.getName()
         def productPrice = beverage.getPrice()
 
