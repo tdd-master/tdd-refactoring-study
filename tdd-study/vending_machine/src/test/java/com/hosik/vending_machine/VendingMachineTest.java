@@ -1,11 +1,11 @@
 package com.hosik.vending_machine;
 
-import com.hosik.product.Product;
+import com.hosik.items.Product;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class VendingMachineTest {
     VendingMachine vendingMachine = new VendingMachine();
@@ -42,9 +42,18 @@ public class VendingMachineTest {
 
     @Test
     public void could_not_buy_when_enough_money() throws Exception{
-        vendingMachine.insertCoin(1000);
+        vendingMachine.insertCoin(900);
         Product product = vendingMachine.getProduct("coke");
-        vendingMachine.isPossible(product);
+        boolean result = vendingMachine.isPossible(product);
+        assertThat(false, is(result));
     }
+
+    @Test
+    public void could_buy_product() throws Exception {
+        vendingMachine.insertCoin(1000);
+        Product product = vendingMachine.buy("coke");
+        assertThat(product.getName(), is("coke"));
+    }
+
 
 }

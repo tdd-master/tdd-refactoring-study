@@ -1,4 +1,4 @@
-package com.hosik.product;
+package com.hosik.items;
 
 public class Product {
     private String name;

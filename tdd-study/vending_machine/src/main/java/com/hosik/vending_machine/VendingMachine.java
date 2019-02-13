@@ -1,8 +1,10 @@
 package com.hosik.vending_machine;
 
+import com.hosik.items.Item;
+import com.hosik.items.ItemImpl;
 import com.hosik.money.MoneyStorage;
 import com.hosik.money.MoneyStorageImpl;
-import com.hosik.product.Product;
+import com.hosik.items.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
 public class VendingMachine {
     private List<Product> productList;
     private MoneyStorage moneyStorage;
-    private int coin;
+    private int coin = 0;
 
     public VendingMachine() {
         productList = new ArrayList<>();
@@ -50,7 +52,21 @@ public class VendingMachine {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
+    public boolean isPossible(Product product) {
+        Product item = getProduct(product.getName());
+        return coin - item.getPrice() >= 0;
+    }
 
-    public void isPossible(Product product) {
+    public Item buy(String name) {
+        Product product = getProduct(name);
+        if (isPossible(product)) {
+            coin -= product.getPrice();
+            Item item = new ItemImpl();
+            item.setProduct(product);
+            item.setChange(coin);
+            return item;
+        } else {
+            return null;
+        }
     }
 }
