@@ -13,9 +13,6 @@ class VendingMachineSpec extends Specification {
 
         when:
         def products = vendingMachine.getProducts()
-        for (Product p : products) {
-            println(p.getName() + " : " + p.getPrice())
-        }
 
         then:
         beverages == products
@@ -28,9 +25,9 @@ class VendingMachineSpec extends Specification {
         setup:
         def beverages = [new Beverage("ldh", 600), new Beverage("coffee", 700)]
         VendingMachine vendingMachine = new VendingMachine(beverages)
+        Cash cash = new Cash(inputAmount)
 
         expect:
-        Cash cash = new Cash(inputAmount)
         vendingMachine.setPayment(cash)
         vendingMachine.purchaseProducts(index)
         change == vendingMachine.returnChange()
@@ -49,16 +46,15 @@ class VendingMachineSpec extends Specification {
         setup:
         def beverages = [new Beverage("ldh", 600), new Beverage("coffee", 700)]
         VendingMachine vendingMachine = new VendingMachine(beverages)
+        Cash cash = new Cash(2000)
 
         when:
-        Cash cash = new Cash(2000)
         vendingMachine.setPayment(cash)
         vendingMachine.purchaseProducts(0, 1)
         def change = vendingMachine.returnChange()
 
         then:
         change == 700
-
 
     }
 
@@ -67,16 +63,15 @@ class VendingMachineSpec extends Specification {
         setup:
         def beverages = [new Beverage("ldh", 600), new Beverage("coffee", 700)]
         VendingMachine vendingMachine = new VendingMachine(beverages)
+        Cash cash = new Cash(2000)
 
         when:
-        Cash cash = new Cash(2000)
         vendingMachine.setPayment(cash)
         vendingMachine.purchaseProducts(0, 1, 1, 0)
 
         then:
         def e = thrown(Exception.class)
         e.class == IllegalArgumentException
-
 
     }
 
