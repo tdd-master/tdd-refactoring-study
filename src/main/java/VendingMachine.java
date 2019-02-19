@@ -2,39 +2,32 @@ import payment.Payment;
 import product.Product;
 
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class VendingMachine {
 
+    Payment payment;
     List<Product> products;
-    Queue<Product> selectedProducts; // polling
 
     VendingMachine(List<Product> products) {
         this.products = products;
-        this.selectedProducts = new LinkedBlockingQueue<>();
     }
 
-    public int purchase(Payment payment) {
-
-        while (!selectedProducts.isEmpty()) {
-            try {
-                payment.pay(selectedProducts.poll().getPrice());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                return getChange(payment);
-            }
+    public void purchaseProducts(int... productIndexes) {
+        for (int productIndex : productIndexes) {
+            payment.pay(products.get(productIndex).getPrice());
         }
-        return getChange(payment);
     }
 
-    public void selectProduct(int productIndex) {
-        this.selectedProducts.offer(this.products.get(productIndex));
-
+    public int returnChange() {
+        return this.payment.getChange();
     }
 
-    public int getChange(Payment payment) {
-        return payment.getChange();
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     public List<Product> getProducts() {

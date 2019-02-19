@@ -31,8 +31,9 @@ class VendingMachineSpec extends Specification {
 
         expect:
         Cash cash = new Cash(inputAmount)
-        vendingMachine.selectProduct(index)
-        change == vendingMachine.purchase(cash)
+        vendingMachine.setPayment(cash)
+        vendingMachine.purchaseProducts(index)
+        change == vendingMachine.returnChange()
 
         where:
         inputAmount | index | change
@@ -51,9 +52,9 @@ class VendingMachineSpec extends Specification {
 
         when:
         Cash cash = new Cash(2000)
-        vendingMachine.selectProduct(0)
-        vendingMachine.selectProduct(1)
-        def change = vendingMachine.purchase(cash)
+        vendingMachine.setPayment(cash)
+        vendingMachine.purchaseProducts(0, 1)
+        def change = vendingMachine.returnChange()
 
         then:
         change == 700
@@ -61,24 +62,23 @@ class VendingMachineSpec extends Specification {
 
     }
 
-//    def "자판기에 현금투입, 음료구매 후 일정시간이 지나도 입력이 없어서 거스름돈 주는거 확인"() {
-//
-//        setup:
-//        def beverages = [new Beverage("ldh", 600), new Beverage("coffee", 700)]
-//        VendingMachine vendingMachine = new VendingMachine(beverages)
-//
-//        when:
-//        Cash cash = new Cash(1000)
-//        vendingMachine.purchase(cash)
-//        vendingMachine.selectProduct(0)
-//        sleep(vendingMachine.getWatingTimeMillis() + 1000)
-//
-//        then:
-//        def e = thrown(Exception.class)
-//        e.class == TimeoutException
-//        Integer.parseInt(e.getMessage()) == 400
-//
-//    }
+    def "자판기에 현금투입, 음료 하나 이상 구매 도중 잔액 부족"() {
+
+        setup:
+        def beverages = [new Beverage("ldh", 600), new Beverage("coffee", 700)]
+        VendingMachine vendingMachine = new VendingMachine(beverages)
+
+        when:
+        Cash cash = new Cash(2000)
+        vendingMachine.setPayment(cash)
+        vendingMachine.purchaseProducts(0, 1, 1, 0)
+
+        then:
+        def e = thrown(Exception.class)
+        e.class == IllegalArgumentException
+
+
+    }
 
 
 }
