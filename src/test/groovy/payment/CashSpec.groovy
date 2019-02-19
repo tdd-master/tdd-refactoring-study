@@ -10,10 +10,25 @@ class CashSpec extends Specification {
         Cash cash = new Cash(10000)
 
         when:
-        def balance = cash.getChange()
+        def change = cash.getChange()
 
         then:
-        balance == 10000
+        change == 10000
+
+    }
+
+
+    def "돈을 추가로 넣을 때 잔액 확인"() {
+
+        setup:
+        Cash cash = new Cash(10000)
+
+        when:
+        cash.addAdditionalCash(10000)
+        def change = cash.getChange()
+
+        then:
+        change == 20000
 
     }
 
@@ -25,10 +40,10 @@ class CashSpec extends Specification {
 
         expect:
         cash.pay(productPrice)
-        balance == cash.getChange()
+        change == cash.getChange()
 
         where:
-        productPrice | balance
+        productPrice | change
         500          | 9500
         1000         | 9000
         10000        | 0
