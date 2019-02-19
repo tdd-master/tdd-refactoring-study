@@ -74,5 +74,22 @@ class VendingMachineSpec extends Specification {
 
     }
 
+    def "자판기에 현금투입, 음료 하나 이상 구매 도중 재고 부족"() {
+
+        setup:
+        def beverages = [new Beverage("ldh", 600, 1), new Beverage("coffee", 700, 1)]
+        VendingMachine vendingMachine = new VendingMachine(beverages)
+        Cash cash = new Cash(2000)
+
+        when:
+        vendingMachine.setPayment(cash)
+        vendingMachine.purchaseProducts(0, 0, 0)
+
+        then:
+        def e = thrown(Exception.class)
+        e.class == IllegalArgumentException
+
+    }
+
 
 }

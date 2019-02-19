@@ -14,7 +14,12 @@ public class VendingMachine {
 
     public void purchaseProducts(int... productIndexes) {
         for (int productIndex : productIndexes) {
-            payment.pay(products.get(productIndex).getPrice());
+            if (products.get(productIndex).getStock() > 0) {
+                payment.pay(products.get(productIndex).getPrice());
+                products.get(productIndex).addStock(-1);
+            } else {
+                throw new IllegalArgumentException();
+            }
         }
     }
 
