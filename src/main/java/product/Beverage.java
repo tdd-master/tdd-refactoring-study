@@ -4,10 +4,12 @@ public class Beverage implements Product {
 
     String name;
     int price;
+    int stock;
 
-    Beverage(String name, int price) {
+    Beverage(String name, int price, int stock) {
         this.name = name;
         this.price = price;
+        this.stock = stock;
     }
 
     @Override
@@ -26,6 +28,21 @@ public class Beverage implements Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+
+    @Override
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    @Override
+    public void addStock(int additionalStock) {
+        this.stock += additionalStock;
     }
 
 }

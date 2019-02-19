@@ -6,4 +6,8 @@ public interface Product {
 
     int getPrice();
 
+    int getStock();
+
+    void addStock(int additionalStock);
+
 }
