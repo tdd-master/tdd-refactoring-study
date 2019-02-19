@@ -12,27 +12,38 @@ public class VendingMachine {
         this.products = products;
     }
 
-    public void purchaseProducts(int... productIndexes) {
-        for (int productIndex : productIndexes) {
-            if (products.get(productIndex).getStock() > 0) {
-                payment.pay(products.get(productIndex).getPrice());
-                products.get(productIndex).addStock(-1);
-            } else {
-                throw new IllegalArgumentException();
-            }
-        }
-    }
-
-    public int returnChange() {
-        return this.payment.getChange();
-    }
-
     public Payment getPayment() {
         return payment;
     }
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public int returnChange() {
+        int change = this.payment.getChange();
+        Payment payment = null;
+        return change;
+    }
+
+    public void purchaseProducts(int... productIndexes) {
+        for (int productIndex : productIndexes) {
+            Product selectedProduct = products.get(productIndex);
+            if (isStockAvaliable(selectedProduct)) {
+                purchaseOne(selectedProduct);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
+    }
+
+    private void purchaseOne(Product selectedProduct) {
+        payment.pay(selectedProduct.getPrice());
+        selectedProduct.addStock(-1);
+    }
+
+    private boolean isStockAvaliable(Product selectedProduct) {
+        return selectedProduct.getStock() > 0;
     }
 
     public List<Product> getProducts() {
