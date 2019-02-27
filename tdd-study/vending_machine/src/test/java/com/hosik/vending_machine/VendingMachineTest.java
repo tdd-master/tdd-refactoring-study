@@ -5,6 +5,8 @@ import com.hosik.product.Product;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -38,29 +40,29 @@ public class VendingMachineTest {
     @Test
     public void could_buy_product() throws Exception {
         vendingMachine.insertCoin(1000);
-        Item item = vendingMachine.buy("coke");
-        assertThat(item.getProduct().getName(), is("coke"));
+        Optional<Item> item = vendingMachine.buy("coke");
+        assertThat(item.map(Item::getProduct).map(Product::getName).get(), is("coke"));
     }
 
     @Test
     public void should_get_change_zero() throws Exception {
         vendingMachine.insertCoin(1000);
-        Item item = vendingMachine.buy("coke");
-        assertThat(item.getChange(), is(0L));
+        Optional<Item> item = vendingMachine.buy("coke");
+        assertThat(item.map(Item::getChange).get(), is(0L));
     }
 
     @Test
     public void should_get_change_600() throws Exception {
         vendingMachine.insertCoin(2000);
-        Item item = vendingMachine.buy("cider");
-        assertThat(item.getChange(), is(600L));
+        Optional<Item> item = vendingMachine.buy("cider");
+        assertThat(item.map(Item::getChange).get(), is(600L));
     }
 
     @Test
     public void should_gain_money() throws Exception {
         vendingMachine.fillUpMoney(10000);
         vendingMachine.insertCoin(10000);
-        Item item = vendingMachine.buy("coke");
+        Optional<Item> item = vendingMachine.buy("coke");
         assertThat(vendingMachine.getBalance(), is(11000L));
     }
 

@@ -31,5 +31,12 @@ public class ProductStorageImplTest {
         Product product = productStorage.getProduct("drpepper");
     }
 
+    @Test public void should_coke_count_9() {
+        Product coke = productStorage.getProduct("coke");
+
+        assertEquals(9, coke.getQuantity());
+
+    }
+
 
 }

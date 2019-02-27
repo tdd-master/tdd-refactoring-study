@@ -1,7 +1,9 @@
 package com.hosik.product;
 
+import java.util.Optional;
+
 public interface ProductStorage {
     void fillUpProduct(Product product);
     Product getProduct(String productName);
-    Product takeOutProduct(String produceName);
+    Optional<Product> takeOutProduct(String produceName);
 }

@@ -44,22 +44,26 @@ public class VendingMachine {
         this.coin = coin;
     }
 
-    public Item buy(String name) {
-        Product product = productStorage.takeOutProduct(name);
-        return Optional.ofNullable(getItem(product)).orElseThrow(IllegalArgumentException::new);
+    public Optional<Item> buy(String name) {
+        Optional<Product> productOptional = productStorage.takeOutProduct(name);
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            int change = moneyStorage.getChangeMoney(coin, product);
+            return Optional.ofNullable(checkItem(product, change)).orElseThrow(IllegalArgumentException::new);
+        }
+        return Optional.empty();
     }
 
-    private Item getItem(Product product) {
-        Item item = new ItemImpl();
-        int change = coin - product.getPrice();
+    private Optional<Item> checkItem(Product product, int change) {
         if (change >= 0) {
+            Item item = new ItemImpl();
             item.setProduct(product);
             item.setChange(change);
             product.setQuantity(product.getQuantity() - 1);
             productStorage.fillUpProduct(product);
             moneyStorage.addMoney(product.getPrice());
-            return item;
+            return Optional.of(item);
         }
-        return null;
+        return Optional.empty();
     }
 }

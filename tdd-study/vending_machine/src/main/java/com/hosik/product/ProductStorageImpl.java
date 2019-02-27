@@ -17,6 +17,12 @@ public class ProductStorageImpl implements ProductStorage {
     }
 
     @Override
+    public Optional<Product> takeOutProduct(String produceName) {
+        Product product = getProduct(produceName);
+        return Optional.ofNullable(checkStack(product)).orElseThrow(IllegalArgumentException::new);
+    }
+
+    @Override
     public Product getProduct(String productName) {
         return stack.stream()
                 .filter(p -> p.getName().equals(productName))
@@ -24,16 +30,10 @@ public class ProductStorageImpl implements ProductStorage {
                 .orElseThrow(IllegalArgumentException::new);
     }
 
-    @Override
-    public Product takeOutProduct(String produceName) {
-        Product product = getProduct(produceName);
-        return Optional.ofNullable(checkStack(product)).orElseThrow(IllegalArgumentException::new);
-    }
-
-    private Product checkStack(Product product) {
+    private Optional<Product> checkStack(Product product) {
         if (product.getQuantity() > 0) {
-            return product;
+            return Optional.of(product);
         }
-        return null;
+        return Optional.empty();
     }
 }

@@ -6,4 +6,5 @@ public interface MoneyStorage {
     void fillUpMoney(long money);
     long getBalance();
     void addMoney(int price);
+    int getChangeMoney(int coin, Product product);
 }
