@@ -27,6 +27,14 @@ class CheckVaild:
     def check_coin_value(self, coin, value):
         assert coin > value
 
+    def check_amount_over_0(self, items):
+        def print_amount_error(value):
+            assert value >= 0, "Mount must be >= 0"
+
+        for key, value in items.items():
+            if value < 0:
+                print_amount_error(value)
+
 class Items:
     def __init__(self, items):
         self.items = items
@@ -35,7 +43,12 @@ class Items:
         self.items.update(other.items)
         return self.items
 
-class MachineInput(Items):
+
+class ItemsAmounts(Items):
+    def __init__(self, items):
+        super().__init__(items)
+
+class MachineInput(ItemsAmounts):
     def __init__(self, items):
         self.coin = 0
         self._check = CheckVaild()
@@ -43,6 +56,13 @@ class MachineInput(Items):
 
     def add_coin(self, coin):
         self.coin += coin
+
+    def add_amounts(self, amount_items):
+        self.amount_items = amount_items
+        print("-현재 자판기 아이템 목록-")
+        for key, value in self.amount_items.items():
+            print("{key} : {value}".format(key=key, value=value))
+        print("\n")
 
 class MachineOutput:
     def __init__(self, coin, change, items, key):
@@ -73,14 +93,20 @@ class VendingMachine():
     def insert_coin(self, coin):
         self._input.add_coin(coin)
 
-    def insert_items(self, items):
-        pass
+    def insert_amount_items(self, amount_items):
+        self._input.add_amounts(amount_items)
 
-    def run(self, coin, key):
-        self.insert_coin(coin)
+    def get_items(self, coin, key):
         tot_values = self._input.items[key]
         self._input._check.check_coin_value(coin, tot_values)
         change = self._input.coin - self._input.items[key]
+        self._input.amount_items[key] -= 1
+        print (key,":",self._input.amount_items[key])
+        return change
+
+    def run(self, coin, key):
+        self.insert_coin(coin)
+        change = self.get_items(coin, key)
         self._output = MachineOutput(coin, change, self._input.items, key)
         print(self._output)
 
@@ -90,5 +116,7 @@ if __name__ == '__main__':
     PARSER.add_argument('-i', '--items', default='milk', type=str, help='selected items')
     ARGS = PARSER.parse_args()
     items = {'milk':600, 'water':500}
+    amount_items = {'milk':5, 'water':1}
     VEN = VendingMachine(items)
+    VEN.insert_amount_items(amount_items)
     VEN.run(ARGS.coin, ARGS.items)

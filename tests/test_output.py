@@ -19,14 +19,15 @@
 
 import unittest
 import pytest
-from main import MachineInput, MachineOutput, Items, VendingMachine
+from main import MachineInput, MachineOutput, Items, ItemsAmounts, VendingMachine, CheckVaild
 
 class TestOutPut(unittest.TestCase):
     def setUp(self):
         self.key = 'milk'
         self.selected_items = {'milk' : 500}
         self.change = 300
-        self.out = MachineOutput(self.change, self.selected_items, self.key)
+        self.coin = 1000
+        self.out = MachineOutput(self.coin, self.change, self.selected_items, self.key)
 
     def test_print_change(self):
         print(self.out)
@@ -45,10 +46,17 @@ class TestItem(unittest.TestCase):
     def setUp(self):
         self.a = Items({'milk':600})
         self.b = Items({'water':500})
+        self._check = CheckVaild()
 
     def test_add(self):
         c = self.a + self.b
         self.assertEqual(list(c.keys()), ['milk', 'water'])
+
+    @pytest.mark.xfail(raises=AssertionError)
+    def test_item_amount(self):
+        self.a_mount = ItemsAmounts({'milk':-1})
+        self._check.check_amount_over_0(self.a_mount.items)
+
 
 class TestVendingMachine(unittest.TestCase):
     def setUp(self):
