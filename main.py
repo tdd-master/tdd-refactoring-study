@@ -17,106 +17,107 @@
 # under the License.
 """VendingMachine"""
 
-from abc import ABCMeta, abstractmethod
 import argparse
+from interface import MoneyAmount, Item
+from check_vaild import CheckVaild
 
-class CheckVaild:
-    def __init__(self):
-        pass
+class MachinePrintOutput:
+    def print_coin_monitor(self, coin):
+        return "현재 금액은 {coin}원.".format(coin=str(coin))
 
-    def check_coin_value(self, coin, value):
-        assert coin > value
-
-    def check_amount_over_0(self, items):
-        def print_amount_error(value):
-            assert value >= 0, "Mount must be >= 0"
-
-        for key, value in items.items():
-            if value < 0:
-                print_amount_error(value)
-
-class Items:
-    def __init__(self, items):
-        self.items = items
-
-    def __add__(self, other):
-        self.items.update(other.items)
-        return self.items
-
-
-class ItemsAmounts(Items):
-    def __init__(self, items):
-        super().__init__(items)
-
-class MachineInput(ItemsAmounts):
-    def __init__(self, items):
-        self.coin = 0
-        self._check = CheckVaild()
-        super(MachineInput, self).__init__(items)
-
-    def add_coin(self, coin):
-        self.coin += coin
-
-    def add_amounts(self, amount_items):
-        self.amount_items = amount_items
-        print("-현재 자판기 아이템 목록-")
-        for key, value in self.amount_items.items():
-            print("{key} : {value}".format(key=key, value=value))
-        print("\n")
-
-class MachineOutput:
-    def __init__(self, coin, change, items, key):
-        self.coin = coin
-        self.key = key
-        self.change = change
-        self.items = items
-
-    def get_coins(self, coin):
-        return "투입하신 금액은 {coin}원.".format(coin=str(coin))
-
-    def get_change(self, change):
-        return "거스름돈은 {change}원.".format(change=str(change))
-
-    def get_selected_items(self, items, key):
+    def print_main_monitor(self, items, key):
         return "선택하신 {item}은 {value}원.".format(item=key, value=items[key])
 
-    def __str__(self):
-        print(self.get_coins(self.coin))
-        print(self.get_selected_items(self.items, self.key))
-        print(self.get_change(self.change))
-        return 'Done'
+    def print_end_monitor(self):
+        return "안녕히 가세요"
 
-class VendingMachine():
-    def __init__(self, items={'water':500}):
-        self._input = MachineInput(items)
+class MachineInputItem(Item):
+    def __init__(self, items={'milk':5, 'water':5}):
+        self.items = items
+
+    def add_new_items(self, new_items):
+        self.items.update(new_items.items)
+
+    def sub_items(self, key):
+        del self.items[key]
+
+    def set_value_by_key(self, key, new_value):
+        self.items[key] = new_value
+
+    def remove_all_items(self):
+        self.items_amount = {}
+
+class MachineInputCoin(MoneyAmount):
+    def __init__(self, coin={'100', 0, '500', 0, '1000', 0}):
+        self.coin = coin
+
+    def add_coins(self, new_coin):
+        for key, value in new_coin.items():
+            self.coin[key] += value
+
+    def sub_coins(self, new_coin):
+        for key, value in new_coin.items():
+            self.coin[key] -= value
+
+    def remove_all_coins(self):
+        for key, value in self.coin.items():
+            self.coin[key] = 0
+
+class MachineInput:
+    def __init__(self):
+        self.Amount = MachineInputItem({'milk': 5, 'water': 5})
+        self.Values = MachineInputItem({'milk': 600, 'water': 500})
+        self.Coins = MachineInputCoin({'100', 0, '500', 0, '1000', 0})
+
+class CustomerInput(CheckVaild):
+    def __init__(self):
+        super(CustomerInput, self).__init__()
+        self.coin = 0
 
     def insert_coin(self, coin):
-        self._input.add_coin(coin)
+        self.coin += coin
 
-    def insert_amount_items(self, amount_items):
-        self._input.add_amounts(amount_items)
+    def select_item(self, key):
+        self.selected_item = key
 
-    def get_items(self, coin, key):
-        tot_values = self._input.items[key]
-        self._input._check.check_coin_value(coin, tot_values)
-        change = self._input.coin - self._input.items[key]
-        self._input.amount_items[key] -= 1
-        print (key,":",self._input.amount_items[key])
+class MachineCalcluator(CheckVaild):
+    def get_the_balance(self, items, key, current_coin):
+        change = current_coin - items[key]
+        return change
+
+    def get_the_value(self, items, key):
+        return items[key]
+
+    def sum_all_values(self, items):
+        _sum = 0
+        for key, value in items.items():
+            _sum += value
+        return _sum
+
+class VendingMachine(MachineCalcluator, MachinePrintOutput):
+    def __init__(self):
+        self.Machine = MachineInput()
+        self.Cust = CustomerInput()
+        self.Cal = MachineCalcluator()
+
+    def get_item(self, key):
+        self.Cust.select_item(key)
+        change = self.Cal.get_the_balance(items=self.Machine.Values.items,
+                                           key=self.Cust.selected_item,
+                                           current_coin=self.Cust.coin)
         return change
 
     def run(self, coin, key):
-        self.insert_coin(coin)
-        change = self.get_items(coin, key)
-        self._output = MachineOutput(coin, change, self._input.items, key)
-        print(self._output)
+        self.Cust.insert_coin(coin)
+        self.print_coin_monitor(self.Cust.coin)
+        self.print_main_monitor(self.Machine.Values.items, key)
+        change = self.get_item(key)
+        print (change)
 
 if __name__ == '__main__':
     PARSER = argparse.ArgumentParser(description='VendingMachine')
     PARSER.add_argument('-c', '--coin', default=1000, type=int, help='coin')
     PARSER.add_argument('-i', '--items', default='milk', type=str, help='selected items')
     ARGS = PARSER.parse_args()
-    items = {'milk':600, 'water':500}
-    amount_items = {'milk':5, 'water':1}
-    VEN = VendingMachine(items)
-    VEN.insert_amount_items(amount_items)
+    VEN = VendingMachine()
     VEN.run(ARGS.coin, ARGS.items)
