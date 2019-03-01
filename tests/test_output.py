@@ -39,30 +39,33 @@ class TestOutPut(unittest.TestCase):
     def test_print_end_monitor(self):
         self.assertTrue(isinstance(self.Print.print_end_monitor(), str))
 
-class TestInputItem(unittest.TestCase):
+class TestItemAmount(unittest.TestCase):
     def setUp(self):
-        self.Items = MachineInputItem({'milk' : 600})
-        self.Check = CheckVaild()
-        self.key = 'milk'
-
-    @pytest.mark.xfail(raises=AssertionError)
-    def test_input_less_than_value(self):
-        self.Check.check_coin_value(500, self.Items.items.get('milk'))
-
-class TestItem(unittest.TestCase):
-    def setUp(self):
-        self.item_01 = MachineInputItem({'milk':600})
-        self.item_02 = MachineInputItem({'water':500})
+        self.ItemsAmount = MachineInputItem({'milk':2})
         self.Check = CheckVaild()
 
-    def test_add(self):
-        self.item_01.add_new_items(self.item_02)
-        self.assertEqual(list(self.item_01.items.keys()), ['milk', 'water'])
+    def test_add_new_items(self):
+        self.ItemsAmount.add_new_items({'water': 3})
+        self.assertEqual(list(self.ItemsAmount.items.keys()), ['milk', 'water'])
 
     @pytest.mark.xfail(raises=AssertionError)
     def test_item_amount(self):
         self.item_01 = MachineInputItem({'milk':-1})
         self.Check.check_amount_over_0(self.item_01.items)
+
+class TestInputItemValue(unittest.TestCase):
+    def setUp(self):
+        self.ItemsValue = MachineInputItem({'milk':600})
+        self.Check = CheckVaild()
+        self.key = 'milk'
+
+    @pytest.mark.xfail(raises=AssertionError)
+    def test_input_less_than_value(self):
+        self.Check.check_coin_value(500, self.ItemsValue.items.get('milk'))
+
+    def test_add_new_items(self):
+        self.ItemsValue.add_new_items({'water':500})
+        self.assertEqual(list(self.ItemsValue.items.keys()), ['milk', 'water'])
 
 class TestVendingMachine(unittest.TestCase):
     def setUp(self):

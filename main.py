@@ -36,7 +36,7 @@ class MachineInputItem(Item):
         self.items = items
 
     def add_new_items(self, new_items):
-        self.items.update(new_items.items)
+        self.items.update(new_items)
 
     def sub_items(self, key):
         del self.items[key]
