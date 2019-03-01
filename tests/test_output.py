@@ -48,10 +48,23 @@ class TestItemAmount(unittest.TestCase):
         self.ItemsAmount.add_new_items({'water': 3})
         self.assertEqual(list(self.ItemsAmount.items.keys()), ['milk', 'water'])
 
+    def test_sub_items(self):
+        self.ItemsAmount.sub_items('milk')
+        self.assertEqual(list(self.ItemsAmount.items.keys()), [])
+
+    def test_modify_value(self):
+        key = 'milk'
+        self.ItemsAmount.set_value_by_key(key, 100)
+        self.assertEqual(self.ItemsAmount.items[key], 100)
+
+    def test_remove_all_items(self):
+        self.ItemsAmount.remove_all_items()
+        self.assertEqual(list(self.ItemsAmount.items.keys()), [])
+
     @pytest.mark.xfail(raises=AssertionError)
     def test_item_amount(self):
-        self.item_01 = MachineInputItem({'milk':-1})
-        self.Check.check_amount_over_0(self.item_01.items)
+        self.ItemsAmount_01 = MachineInputItem({'milk':-1})
+        self.Check.check_amount_over_0(self.ItemsAmount_01.items)
 
 class TestInputItemValue(unittest.TestCase):
     def setUp(self):

@@ -45,7 +45,7 @@ class MachineInputItem(Item):
         self.items[key] = new_value
 
     def remove_all_items(self):
-        self.items_amount = {}
+        self.items = {}
 
 class MachineInputCoin(MoneyAmount):
     def __init__(self, coin={'100', 0, '500', 0, '1000', 0}):
