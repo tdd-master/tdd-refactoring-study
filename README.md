@@ -17,6 +17,7 @@
 | 2 | Thr, Feb 7 |  Video Chat | calculator |문자열 계산기 (2) |백명석님 동영상 3,4,5,6강 |
 | 3 | Thu, Feb 14 |  Video Chat | vendingmachine |자판기 (1) |백명석님 동영상 7,8강 |
 | 4 | Fri, Mar 1 |  Video Chat | vendingmachine |자판기(2) |백명석님 동영상 9,10강 |
+| 5 | Fri, Mar 8 |  Video Chat | xxxx |환전(1) |백명석님 동영상 11,12강 |
 | | | | |
 
 [In detail](https://github.com/orgs/tdd-master/projects/2)
