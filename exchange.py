@@ -4,7 +4,8 @@ class Money:
 
     def equals(self, object):
         money = object
-        return self._amount == money._amount
+        return (self._amount == money._amount) & \
+               (type(self).__name__ == type(money).__name__)
 
     def __eq__(self, other):
         return self._amount == other._amount
