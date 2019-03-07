@@ -1,28 +1,26 @@
-class Dollar:
+class Money:
     def __init__(self, amount):
-        self.__amount = amount
-
-    def times(self, multiplier):
-        return Dollar(self.__amount * multiplier)
+        self._amount = amount
 
     def equals(self, object):
-        dollar = object
-        return self.__amount == dollar.__amount
+        money = object
+        return self._amount == money._amount
 
     def __eq__(self, other):
-        return self.__amount == other.__amount
+        return self._amount == other._amount
 
 
-class Franc:
+class Dollar(Money):
     def __init__(self, amount):
-        self.__amount = amount
+        super().__init__(amount)
 
     def times(self, multiplier):
-        return Franc(self.__amount * multiplier)
+        return Dollar(self._amount * multiplier)
 
-    def equals(self, object):
-        dollar = object
-        return self.__amount == dollar.__amount
 
-    def __eq__(self, other):
-        return self.__amount == other.__amount
+class Franc(Money):
+    def __init__(self, amount):
+        super().__init__(amount)
+
+    def times(self, multiplier):
+        return Franc(self._amount * multiplier)
