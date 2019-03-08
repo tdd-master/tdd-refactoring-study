@@ -17,10 +17,10 @@ class Money(metaclass=ABCMeta):
     def equals(self, object):
         money = object
         return (self._amount == money._amount) & \
-               (type(self).__name__ == type(money).__name__)
+               (self.currency() == money.currency())
 
     def times(self, multiplier):
-        return Money(self._amount * multiplier, None)
+        return Money(self._amount * multiplier, self._currency)
 
     def currency(self):
         return self._currency
@@ -34,5 +34,4 @@ class Dollar(Money):
 class Franc(Money):
     def __init__(self, amount, currency):
         super(Franc, self).__init__(amount, currency)
-        self._currency = "CHF"
 
