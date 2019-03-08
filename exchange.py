@@ -1,14 +1,18 @@
 from abc import ABCMeta, abstractmethod
 
 class Money(metaclass=ABCMeta):
-    def __init__(self, amount):
+    def __init__(self, amount, currency):
         self._amount = amount
+        self._currency = currency
+
+    def __eq__(self, other):
+        return self._amount == other._amount
 
     def dollar(amount):
-        return Dollar(amount)
+        return Dollar(amount, "USD")
 
     def franc(amount):
-        return Franc(amount)
+        return Franc(amount, "CHF")
 
     def equals(self, object):
         money = object
@@ -16,23 +20,19 @@ class Money(metaclass=ABCMeta):
                (type(self).__name__ == type(money).__name__)
 
     def times(self, multiplier):
-       pass
+        return Money(self._amount * multiplier, None)
 
-    def __eq__(self, other):
-        return self._amount == other._amount
+    def currency(self):
+        return self._currency
 
 
 class Dollar(Money):
-    def __init__(self, amount):
-        super(Dollar, self).__init__(amount)
-
-    def times(self, multiplier):
-        return Dollar(self._amount * multiplier)
+    def __init__(self, amount, currency):
+        super(Dollar, self).__init__(amount, currency)
 
 
 class Franc(Money):
-    def __init__(self, amount):
-        super(Franc, self).__init__(amount)
+    def __init__(self, amount, currency):
+        super(Franc, self).__init__(amount, currency)
+        self._currency = "CHF"
 
-    def times(self, multiplier):
-        return Franc(self._amount * multiplier)
