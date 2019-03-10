@@ -47,10 +47,10 @@ class ExchangeRateSpec  extends Specification {
         ExchangeRate exchangeRate = new ExchangeRate()
 
         when:
-        def recieveRate = exchangeRate.getRecieveRate()
+        def receiveRate = exchangeRate.getReceiveRate()
 
         then:
-        recieveRate ==  1230.0
+        receiveRate ==  1230.0
 
     }
 
@@ -103,10 +103,10 @@ class ExchangeRateSpec  extends Specification {
                 , 1.00, 1556.89, 1117.11, 1148.10, 1125.90)
 
         when:
-        def recieveRate = exchangeRate.getRecieveRate()
+        def receiveRate = exchangeRate.getReceiveRate()
 
         then:
-        recieveRate ==  1125.90
+        receiveRate ==  1125.90
 
     }
 

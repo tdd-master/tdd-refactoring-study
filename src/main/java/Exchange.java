@@ -6,6 +6,6 @@ public interface Exchange {
 
     double send(double moneyToExchange);
 
-    double recieve(double moneyToExchange);
+    double receive(double moneyToExchange);
 
 }

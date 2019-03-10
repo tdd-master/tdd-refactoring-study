@@ -7,7 +7,7 @@ public class ExchangeRate {
     double buyRate;
     double sellRate;
     double sendRate;
-    double recieveRate;
+    double receiveRate;
 
 
     public ExchangeRate() {
@@ -16,20 +16,20 @@ public class ExchangeRate {
         this.buyRate = 1300.0;
         this.sellRate = 1200.0;
         this.sendRate = 1250.0;
-        this.recieveRate = 1230.0;
+        this.receiveRate = 1230.0;
     }
 
 
     public ExchangeRate(String currency
             , double dollarConversionRate
-            , double buyRate, double sellRate, double sendRate, double recieveRate) {
+            , double buyRate, double sellRate, double sendRate, double receiveRate) {
 
         this.currency = currency;
         this.dollarConversionRate = dollarConversionRate;
         this.buyRate = buyRate;
         this.sellRate = sellRate;
         this.sendRate = sendRate;
-        this.recieveRate = recieveRate;
+        this.receiveRate = receiveRate;
     }
 
 
@@ -73,12 +73,12 @@ public class ExchangeRate {
         this.sendRate = sendRate;
     }
 
-    public double getRecieveRate() {
-        return recieveRate;
+    public double getReceiveRate() {
+        return receiveRate;
     }
 
-    public void setRecieveRate(double recieveRate) {
-        this.recieveRate = recieveRate;
+    public void setReceiveRate(double receiveRate) {
+        this.receiveRate = receiveRate;
     }
 
 }

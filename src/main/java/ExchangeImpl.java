@@ -26,8 +26,8 @@ public class ExchangeImpl implements Exchange{
     }
 
     @Override
-    public double recieve(double moneyToExchange){
-        return moneyToExchange/exchangeRate.getRecieveRate();
+    public double receive(double moneyToExchange){
+        return moneyToExchange/exchangeRate.getReceiveRate();
     }
 
 }
