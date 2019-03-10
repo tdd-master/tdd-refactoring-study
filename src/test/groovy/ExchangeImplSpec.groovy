@@ -14,7 +14,7 @@ class ExchangeImplSpec extends Specification {
         moneyToExchange | buyCurrency
         0               | 0
         1300            | 1
-        1500            | 1.1538461538461537
+        1500            | 1.15
 
     }
 
@@ -62,7 +62,7 @@ class ExchangeImplSpec extends Specification {
         moneyToExchange | recieveCurrency
         0               | 0
         1230            | 1
-        1500            | 1.2195121951219512
+        1500            | 1.22
 
     }
 
@@ -79,8 +79,8 @@ class ExchangeImplSpec extends Specification {
         where:
         moneyToExchange | buyCurrency
         0               | 0
-        155689          | 100
-        150000          | 150000/1556.89
+        155689          | 100.00
+        150000          | 96.35
 
     }
 
@@ -97,8 +97,8 @@ class ExchangeImplSpec extends Specification {
         where:
         moneyToExchange | sellCurrency
         0               | 0
-        111711          | 100
-        150000          | 150000/1117.11
+        111711          | 100.00
+        150000          | 134.28
 
     }
 
@@ -115,8 +115,8 @@ class ExchangeImplSpec extends Specification {
         where:
         moneyToExchange | sendCurrency
         0               | 0
-        114810          | 100
-        150000          | 150000/1148.10
+        114810          | 100.00
+        150000          | 130.65
 
     }
 
@@ -134,7 +134,7 @@ class ExchangeImplSpec extends Specification {
         moneyToExchange | recieveCurrency
         0               | 0
         112590          | 100
-        150000          | 150000/1125.90
+        150000          | 133.27
 
     }
 
