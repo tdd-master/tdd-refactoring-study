@@ -56,7 +56,7 @@ class ExchangeImplSpec extends Specification {
         Exchange exchange = new ExchangeImpl()
 
         expect:
-        recieveCurrency == exchange.recieve(moneyToExchange)
+        recieveCurrency == exchange.receive(moneyToExchange)
 
         where:
         moneyToExchange | recieveCurrency
@@ -128,13 +128,13 @@ class ExchangeImplSpec extends Specification {
         Exchange exchange = new ExchangeImpl(exchangeRate)
 
         expect:
-        recieveCurrency == exchange.recieve(moneyToExchange)
+        recieveCurrency == exchange.receive(moneyToExchange)
 
         where:
         moneyToExchange | recieveCurrency
         0               | 0
         112590          | 100
-        150000          | 133.27
+        150000          | 133.23
 
     }
 
