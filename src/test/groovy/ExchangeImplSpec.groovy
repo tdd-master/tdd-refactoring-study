@@ -5,30 +5,28 @@ class ExchangeImplSpec extends Specification {
     def "기본 생성자로 설정한 달러 구매 환율 결과 확인"() {
 
         setup:
-        ExchangeRate exchangeRate = new ExchangeRate()
-        Exchange exchange = new ExchangeImpl(exchangeRate)
+        Exchange exchange = new ExchangeImpl()
 
-        when:
-        buyCurrency = exchange.buy(moneyToExchange)
+        expect:
+        buyCurrency == exchange.buy(moneyToExchange)
 
-        then:
+        where:
         moneyToExchange | buyCurrency
         0               | 0
         1300            | 1
-        1500            | 1.15
+        1500            | 1.1538461538461537
 
     }
 
     def "기본 생성자로 설정한 달러 판매 환율 결과 확인"() {
 
         setup:
-        ExchangeRate exchangeRate = new ExchangeRate()
-        Exchange exchange = new ExchangeImpl(exchangeRate)
+        Exchange exchange = new ExchangeImpl()
 
-        when:
-        sellCurrency = exchange.sell(moneyToExchange)
+        expect:
+        sellCurrency == exchange.sell(moneyToExchange)
 
-        then:
+        where:
         moneyToExchange | sellCurrency
         0               | 0
         1200            | 1
@@ -39,13 +37,12 @@ class ExchangeImplSpec extends Specification {
     def "기본 생성자로 설정한 달러 송금 환율 결과 확인"() {
 
         setup:
-        ExchangeRate exchangeRate = new ExchangeRate()
-        Exchange exchange = new ExchangeImpl(exchangeRate)
+        Exchange exchange = new ExchangeImpl()
 
-        when:
-        sendCurrency = exchange.send(moneyToExchange)
+        expect:
+        sendCurrency == exchange.send(moneyToExchange)
 
-        then:
+        where:
         moneyToExchange | sendCurrency
         0               | 0
         1250            | 1
@@ -56,17 +53,16 @@ class ExchangeImplSpec extends Specification {
     def "기본 생성자로 설정한 달러 입금 환율 결과 확인"() {
 
         setup:
-        ExchangeRate exchangeRate = new ExchangeRate()
-        Exchange exchange = new ExchangeImpl(exchangeRate)
+        Exchange exchange = new ExchangeImpl()
 
-        when:
-        recieveCurrency = exchange.recieve(moneyToExchange)
+        expect:
+        recieveCurrency == exchange.recieve(moneyToExchange)
 
-        then:
+        where:
         moneyToExchange | recieveCurrency
         0               | 0
         1230            | 1
-        1500            | 1.219
+        1500            | 1.2195121951219512
 
     }
 
@@ -77,10 +73,10 @@ class ExchangeImplSpec extends Specification {
                 , 1.00, 1556.89, 1117.11, 1148.10, 1125.90)
         Exchange exchange = new ExchangeImpl(exchangeRate)
 
-        when:
-        buyCurrency = exchange.buy(moneyToExchange)
+        expect:
+        buyCurrency == exchange.buy(moneyToExchange)
 
-        then:
+        where:
         moneyToExchange | buyCurrency
         0               | 0
         155689          | 100
@@ -95,10 +91,10 @@ class ExchangeImplSpec extends Specification {
                 , 1.00, 1556.89, 1117.11, 1148.10, 1125.90)
         Exchange exchange = new ExchangeImpl(exchangeRate)
 
-        when:
-        sellCurrency = exchange.sell(moneyToExchange)
+        expect:
+        sellCurrency == exchange.sell(moneyToExchange)
 
-        then:
+        where:
         moneyToExchange | sellCurrency
         0               | 0
         111711          | 100
@@ -113,10 +109,10 @@ class ExchangeImplSpec extends Specification {
                 , 1.00, 1556.89, 1117.11, 1148.10, 1125.90)
         Exchange exchange = new ExchangeImpl(exchangeRate)
 
-        when:
-        sendCurrency = exchange.send(moneyToExchange)
+        expect:
+        sendCurrency == exchange.send(moneyToExchange)
 
-        then:
+        where:
         moneyToExchange | sendCurrency
         0               | 0
         114810          | 100
@@ -131,10 +127,10 @@ class ExchangeImplSpec extends Specification {
                 , 1.00, 1556.89, 1117.11, 1148.10, 1125.90)
         Exchange exchange = new ExchangeImpl(exchangeRate)
 
-        when:
-        recieveCurrency = exchange.recieve(moneyToExchange)
+        expect:
+        recieveCurrency == exchange.recieve(moneyToExchange)
 
-        then:
+        where:
         moneyToExchange | recieveCurrency
         0               | 0
         112590          | 100
