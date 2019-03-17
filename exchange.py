@@ -9,10 +9,10 @@ class Money(metaclass=ABCMeta):
         return self._amount == other._amount
 
     def dollar(amount):
-        return Dollar(amount, "USD")
+        return Money(amount, "USD")
 
     def franc(amount):
-        return Franc(amount, "CHF")
+        return Money(amount, "CHF")
 
     def equals(self, object):
         money = object
@@ -24,11 +24,6 @@ class Money(metaclass=ABCMeta):
 
     def currency(self):
         return self._currency
-
-
-class Dollar(Money):
-    def __init__(self, amount, currency):
-        super(Dollar, self).__init__(amount, currency)
 
 
 class Franc(Money):
