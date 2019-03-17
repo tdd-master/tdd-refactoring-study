@@ -24,9 +24,3 @@ class Money(metaclass=ABCMeta):
 
     def currency(self):
         return self._currency
-
-
-class Franc(Money):
-    def __init__(self, amount, currency):
-        super(Franc, self).__init__(amount, currency)
-
