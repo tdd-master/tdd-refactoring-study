@@ -14,6 +14,10 @@ class Expression(metaclass=ABCMeta):
     def reduce(self, bank, _to):
         raise NotImplementedError('')
 
+    @abstractmethod
+    def times(self, multiplier):
+        raise NotImplementedError('')
+
 
 class Money(Expression):
     def __init__(self, amount, currency):
@@ -47,6 +51,7 @@ class Money(Expression):
         rate = bank.rate(self._currency, _to)
         return Money(self._amount / rate, _to)
 
+
 class Sum(Expression):
     def __init__(self, augend, addend):
         super(Sum, self).__init__(augend, addend)
@@ -57,7 +62,11 @@ class Sum(Expression):
         return Money(amount, _to)
 
     def plus(self, addend):
-        return None
+        return Sum(self, addend)
+
+    def times(self, multiplier):
+        return Sum(self.augend.times(multiplier), self.addend.times(multiplier))
+
 
 class Pair:
     def __init__(self, _from, _to):

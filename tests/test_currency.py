@@ -1,4 +1,5 @@
 import unittest
+import pytest
 from exchange import Money, Bank, Sum
 
 class TesCurrency(unittest.TestCase):
@@ -52,6 +53,7 @@ class TesCurrency(unittest.TestCase):
         result = bank.reduce(Money.franc(2), "USD")
         self.assertEqual(Money.dollar(1), result)
 
+    @pytest.mark.skip(reason="CH14.P132")
     def test_array_equals(self):
         pass
 
@@ -65,6 +67,29 @@ class TesCurrency(unittest.TestCase):
         bank.addRate("CHF", "USD", 2)
         result = bank.reduce(fiveBucks.plus(tenFranc), "USD")
         self.assertTrue(Money.dollar(10).equals(result))
+
+    def test_sum_plus_money(self):
+        fiveBucks = Money.dollar(5)
+        tenFrancs = Money.franc(10)
+        bank = Bank()
+        bank.addRate("CHF", "USD", 2)
+        _sum = Sum(fiveBucks, tenFrancs).plus(fiveBucks)
+        result = bank.reduce(_sum, "USD")
+        self.assertTrue(Money.dollar(15).equals(result))
+
+    def test_sum_times(self):
+        fiveBucks = Money.dollar(5)
+        tenFrancs = Money.franc(10)
+        bank = Bank()
+        bank.addRate("CHF", "USD", 2)
+        _sum = Sum(fiveBucks, tenFrancs).times(2)
+        result = bank.reduce(_sum, "USD")
+        self.assertTrue(Money.dollar(20).equals(result))
+
+    @pytest.mark.skip(reason="CH16.P16")
+    def test_plus_same_currency_return_money(self):
+        _sum = Money.dollar(1).plus(Money.dollar(1))
+        self.assertTrue(isinstance(_sum, Money))
 
 if __name__ == '__main__':
     unittest.main()
