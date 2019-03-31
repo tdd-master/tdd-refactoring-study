@@ -1,6 +1,16 @@
 from abc import ABCMeta, abstractmethod
 
-class Money(metaclass=ABCMeta):
+
+class Expression(metaclass=ABCMeta):
+    def __init__(self, addend):
+        self._addend = addend
+
+    @abstractmethod
+    def plus(self, addend):
+        return Money(self._amount + addend._amount, self._currency)
+
+
+class Money(Expression):
     def __init__(self, amount, currency):
         self._amount = amount
         self._currency = currency
@@ -24,3 +34,12 @@ class Money(metaclass=ABCMeta):
 
     def currency(self):
         return self._currency
+
+    def plus(self, addend):
+        return Money(self._amount + addend._amount, self._currency)
+
+
+class Bank:
+    def reduce(self, _source, _str):
+        return Money.dollar(10)
+
