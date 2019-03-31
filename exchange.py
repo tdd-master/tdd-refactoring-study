@@ -2,8 +2,9 @@ from abc import ABCMeta, abstractmethod
 
 
 class Expression(metaclass=ABCMeta):
-    def __init__(self, addend):
-        self._addend = addend
+    def __init__(self, augend, addend):
+        self.augend = augend
+        self.addend = addend
 
     @abstractmethod
     def plus(self, addend):
@@ -46,14 +47,17 @@ class Money(Expression):
         rate = bank.rate(self._currency, _to)
         return Money(self._amount / rate, _to)
 
-class Sum:
+class Sum(Expression):
     def __init__(self, augend, addend):
-        self.augend = augend
-        self.addend = addend
+        super(Sum, self).__init__(augend, addend)
 
     def reduce(self, bank, _to):
-        amount = self.augend._amount + self.addend._amount
+        amount = self.augend.reduce(bank, _to)._amount + \
+                 self.addend.reduce(bank, _to)._amount
         return Money(amount, _to)
+
+    def plus(self, addend):
+        return None
 
 class Pair:
     def __init__(self, _from, _to):
