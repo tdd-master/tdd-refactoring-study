@@ -11,7 +11,7 @@ class Expression(metaclass=ABCMeta):
         raise NotImplementedError('')
 
     @abstractmethod
-    def reduce(self, to):
+    def reduce(self, bank, _to):
         raise NotImplementedError('')
 
 
