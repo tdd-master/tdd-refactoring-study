@@ -1,5 +1,5 @@
 import unittest
-from exchange import Money, Bank
+from exchange import Money, Bank, Sum
 
 class TesCurrency(unittest.TestCase):
     def test_dollar_multiplication(self):
@@ -24,11 +24,27 @@ class TesCurrency(unittest.TestCase):
     def test_simple_addition(self):
         five = Money.dollar(5)
         _sum = five.plus(five)
-        self.assertEqual(Money.dollar(10), _sum)
         bank = Bank()
         reduced = bank.reduce(_sum, "USD")
         self.assertEqual(Money.dollar(10), reduced)
 
+    def test_plus_return_sum(self):
+        five = Money.dollar(5)
+        result = five.plus(five)
+        _sum = result
+        self.assertEqual(five, _sum.augend)
+        self.assertEqual(five, _sum.addend)
+
+    def test_reduce_sum(self):
+        _sum = Sum(Money.dollar(3), Money.dollar(4))
+        bank = Bank()
+        result = bank.reduce(_sum, "USD")
+        self.assertTrue(Money.dollar(7).equals(result))
+
+    def test_reduce_money(self):
+        bank = Bank()
+        result = bank.reduce(Money.dollar(1), "USD")
+        self.assertEqual(Money.dollar(1), result)
 
 if __name__ == '__main__':
     unittest.main()

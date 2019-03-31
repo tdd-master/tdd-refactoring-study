@@ -7,7 +7,11 @@ class Expression(metaclass=ABCMeta):
 
     @abstractmethod
     def plus(self, addend):
-        return Money(self._amount + addend._amount, self._currency)
+        raise NotImplementedError('')
+
+    @abstractmethod
+    def reduce(self, to):
+        raise NotImplementedError('')
 
 
 class Money(Expression):
@@ -36,10 +40,25 @@ class Money(Expression):
         return self._currency
 
     def plus(self, addend):
-        return Money(self._amount + addend._amount, self._currency)
+        return Sum(self, addend)
+
+    def reduce(self, _to):
+        return self
+
+class Sum:
+    def __init__(self, augend, addend):
+        self.augend = augend
+        self.addend = addend
+
+    def reduce(self, _to):
+        amount = self.augend._amount + self.addend._amount
+        return Money(amount, _to)
 
 
 class Bank:
-    def reduce(self, _source, _str):
-        return Money.dollar(10)
+    def reduce(self, _source, _to):
+        if isinstance(_source, Money):
+            return _source.reduce(_to)
+        _sum = _source
+        return _sum.reduce(_to)
 
